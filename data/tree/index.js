@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-27 21:16:13
- * @LastEditTime: 2021-02-27 21:41:18
+ * @LastEditTime: 2021-02-27 22:35:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/data/tree/index.js
@@ -50,12 +50,12 @@
         }
      ]
  }
-
-
-const dfs = (root) => {
+const dfs = function(root) {
     console.log(root.val);
     root.children.forEach(dfs);
 }
 
 dfs(root);
+
+
  
