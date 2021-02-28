@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-28 17:46:12
- * @LastEditTime: 2021-02-28 18:08:22
+ * @LastEditTime: 2021-02-28 18:42:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/珠峰day01/index.md
@@ -82,6 +82,17 @@
 ```
 ### 游戏方面
 ### 可视化或AI方向
+
+### BAT/TMD这种大公司到底怎么面试的
+```
+1,什么是标签语义化
+合理的标签干合理的事
+2,都有那些标签标,都是啥意思
+
+```
+### 1掌握合子水平垂直居中五大方案
+
+
 
 
 
