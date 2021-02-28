@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-28 16:15:06
- * @LastEditTime: 2021-02-28 16:26:16
+ * @LastEditTime: 2021-02-28 16:26:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/data/sort/selectSort.js
@@ -21,9 +21,6 @@
             this[indexMin] = temp;
         }
     }
-
-   
-
  }
 
  let arr = [5,4,3,2,1];
