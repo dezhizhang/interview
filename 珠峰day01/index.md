@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-28 17:46:12
- * @LastEditTime: 2021-02-28 18:42:11
+ * @LastEditTime: 2021-02-28 22:37:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/珠峰day01/index.md
@@ -91,6 +91,15 @@
 
 ```
 ### 1掌握合子水平垂直居中五大方案
+
+
+
+### 2,关于CSS3中盒模型
+```
+1,标准盒子模型
+2,IE怪异盒模型
+3,flex盒模型
+```
 
 
 
