@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-28 17:46:12
- * @LastEditTime: 2021-02-28 22:37:24
+ * @LastEditTime: 2021-02-28 22:49:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/珠峰day01/index.md
@@ -100,6 +100,12 @@
 2,IE怪异盒模型
 3,flex盒模型
 ```
+### 3掌握几大经典布局方案
+```
+1,圣怀布局
+2,双飞巽布局
+```
+
 
 
 
