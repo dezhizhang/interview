@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-03 20:38:19
- * @LastEditTime: 2021-03-03 21:01:55
+ * @LastEditTime: 2021-03-03 21:23:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day01/README.md
@@ -42,6 +42,17 @@ a[b] = "珠峰";
 a[c] = "培训";
 培训
 ```
+### 闭包的引用
+```
+let test = (function(i) {
+    return function() {
+        console.log(i *=2);
+    }
+})(2);
+
+test(5);
+```
+
 
 
     
