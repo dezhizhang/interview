@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-03 23:34:02
- * @LastEditTime: 2021-03-05 21:09:53
+ * @LastEditTime: 2021-03-05 22:18:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day04/README.md
@@ -67,6 +67,32 @@ function flat(arr) {
 
 flat(arr);
 ```
+### 两个数的交集
+```
+ let nums1 = [1,2,2,1];
+ let nums2 = [2,2];
+
+ let arr = [];
+ for(let i=0;i < nums1.length;i++) {
+    if(nums2.indexOf(nums1[i]) !=-1) {
+        arr.push(nums1[i]);
+    }
+}
+
+console.log(arr);
+```
+### 数组的旋转
+```
+Array.prototype.rotate = function(n) {
+    for(let i=0;i < n;i++) {
+        this.unshift(this.pop());
+    }
+}
+ 
+arr.rotate(3);
+```
+
+
 
 
 
