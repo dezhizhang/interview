@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-05 23:22:11
- * @LastEditTime: 2021-03-05 23:54:37
+ * @LastEditTime: 2021-03-06 00:01:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day04/数组合并.js
@@ -18,15 +18,27 @@
 
 //  console.log(arr);
 
+// let n = 0;
+// for(let i=0;i < arr2.length;i++) {
+//     for(let j=0;j < arr1.length;j++) {
+//         if(arr1[j].includes(arr2[i])) {
+//             n=j
+//         }
+//     }
+//     arr1.splice(n+1,0,arr2[i]);
+// }
+
+// console.log(arr1);
+
 let n = 0;
 for(let i=0;i < arr2.length;i++) {
     for(let j=0;j < arr1.length;j++) {
         if(arr1[j].includes(arr2[i])) {
-            n=j
+            n = j;
         }
     }
-    arr1.splice(n+1,0,arr2[i]);
+    arr1.splice(i,0,arr2[i]);
 }
-
-console.log(arr1);
  
+console.log(arr1);
+

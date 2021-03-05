@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-03 23:34:02
- * @LastEditTime: 2021-03-05 23:47:01
+ * @LastEditTime: 2021-03-05 23:56:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day04/README.md
@@ -131,6 +131,21 @@ console.log(d instanceof Dog);
 
  console.log(arr);
 ```
+### 数组合并1
+```
+let n = 0;
+for(let i=0;i < arr2.length;i++) {
+    for(let j=0;j < arr1.length;j++) {
+        if(arr1[j].includes(arr2[i])) {
+            n=j
+        }
+    }
+    arr1.splice(n+1,0,arr2[i]);
+}
+
+console.log(arr1);
+```
+
  
 
 
