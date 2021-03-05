@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-03 23:34:02
- * @LastEditTime: 2021-03-05 18:51:34
+ * @LastEditTime: 2021-03-05 21:09:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day04/README.md
@@ -40,6 +40,35 @@ let s = "zhangdezhi";
 let index = s.myIndexOf("de");
 console.log(index);
 ```
+###  数组扁平化
+```
+let newArr = arr.toString().split(',').map(item => Number(item));
+console.log(newArr);
+
+
+arr = [...new Set(arr.flat(Infinity))].sort((a,b) => a - b)
+```
+### 娄组扁平化2
+```
+let arr = [[1,2,2],[3,4,5,5],[6,7,8,9,[11,12,[14]]],10];
+let newArr = [];
+
+function flat(arr) {
+    if(arr&&arr.length <=0) return
+    let length = arr.length;
+    for(let i=0;i < length;i++) {
+        if(!Array.isArray(arr[i])) {
+            newArr.push(arr[i]);
+        }else {
+            flat(arr[i])
+        }  
+    }
+}
+
+flat(arr);
+```
+
+
 
 
  
