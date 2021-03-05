@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-03 23:34:02
- * @LastEditTime: 2021-03-05 22:18:03
+ * @LastEditTime: 2021-03-05 22:51:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day04/README.md
@@ -91,6 +91,34 @@ Array.prototype.rotate = function(n) {
  
 arr.rotate(3);
 ```
+### 手动创建new 
+```
+function Dog(name) {
+     this.name = name;
+}
+
+Dog.prototype.bark = function() {
+    console.log("wangwang");
+}
+
+Dog.prototype.sayName = function() {
+    console.log('my name is'+this.name);
+}
+
+function _new(Fn,...arg) {
+    let obj = {}
+    obj.__proto__ = Fn.prototype;
+    Fn.call(obj,...arg)
+    return obj;
+}
+
+let d = _new(Dog,"三毛");
+d.bark();
+d.sayName();
+
+console.log(d instanceof Dog);
+```
+
 
 
 
