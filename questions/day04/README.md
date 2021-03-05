@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-03 23:34:02
- * @LastEditTime: 2021-03-03 23:34:29
+ * @LastEditTime: 2021-03-05 18:51:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day04/README.md
@@ -13,4 +13,35 @@
  console.log(arr1);
  
  ```
+ ### 箭头函数与普通函数的区别
+ ```
+ 1,剪头函数语法比普通函数更加简洁
+ 2,箭头函数没有自己的this,它里面的this继承所处上下文this(使用call和applay无法改变this)
+ 3,箭头函数中没有arguments(类数组),只能基于..arg获取传递的参数集合(数组)
+ 4,箭头函数不能被new执行(因为前头函数没有prototype)
+ ```
+ ### 字符串替换
+ ```
+let str = "dezhiZhang哈哈哈 HAHA";
+str = str.replace(/[a-zA-Z]/g,item => {
+    return item.charCodeAt() >=65 && item.charCodeAt() <=90 ? item.toLowerCase():item.toUpperCase();
+});
+console.log("str",str);
+```
+### 重写indexOf
+```
+String.prototype.myIndexOf = function(T) {
+    let reg = new RegExp(T);
+    let res = reg.exec(this);
+    return res === null ? -1:res.index;
+}
+
+let s = "zhangdezhi";
+let index = s.myIndexOf("de");
+console.log(index);
+```
+
+
+ 
+ 
  
