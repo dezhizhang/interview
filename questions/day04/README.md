@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-03 23:34:02
- * @LastEditTime: 2021-03-05 22:51:54
+ * @LastEditTime: 2021-03-05 23:47:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day04/README.md
@@ -118,6 +118,20 @@ d.sayName();
 
 console.log(d instanceof Dog);
 ```
+### 数组合并
+```
+ let arr1 = ["A1","A2","B1","B2","C1","C2","D1","D2"];
+ let arr2 = ["B","A","D","C"];
+
+ arr2 = arr2.map(item => item + "3");
+ let arr = arr1.concat(arr2);
+ arr = arr.sort((a,b) => a.localeCompare(b)).map(item => {
+     return item.replace('3',"");
+ });
+
+ console.log(arr);
+```
+ 
 
 
 
