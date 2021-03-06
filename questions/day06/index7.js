@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-06 19:17:54
- * @LastEditTime: 2021-03-06 19:41:01
+ * @LastEditTime: 2021-03-06 19:43:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/index7.js
@@ -36,13 +36,13 @@
 
 
 
-let k = 0;
-for(let i=0,j =0; i < 10,j < 6;i++,j++) {
+// let k = 0;
+// for(let i=0,j =0; i < 10,j < 6;i++,j++) {
   
-    k = i + j
-}
+//     k = i + j
+// }
 
-console.log(k);
+// console.log(k);
 
 
 
