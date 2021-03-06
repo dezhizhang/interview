@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 17:03:40
+ * @LastEditTime: 2021-03-06 17:44:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -94,6 +94,19 @@ let c = createChinese('张三','茵语');
 c.say();
 
 ```
+### 闭包函数
+```
+ let lis = document.querySelectorAll('li');
+    for(let i=0;i < lis.length;i++) {
+        lis[i].onclick= (function(index) {
+            return function() {
+                console.log(index);
+            }
+    })(i)
+}
+```
+
+
 
 
 
