@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 01:19:16
- * @LastEditTime: 2021-03-07 01:21:35
+ * @LastEditTime: 2021-03-07 01:35:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/promise/README.md
@@ -22,3 +22,12 @@ setTimeout(()=>{
 
 console.log('setTimeout之后');
 ```
+### 常见的内置错误
+```
+1,ReferenceError:引用变量不存在
+2,TypeError：数据类型
+3,RangeError：数据值不在其所允许的范围内
+```
+
+
+
