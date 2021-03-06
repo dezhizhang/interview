@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 19:07:58
+ * @LastEditTime: 2021-03-06 19:40:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -146,6 +146,28 @@ for(let i=1;i<=3;i++) {
     })(i),0)
 }
 ```
+### 计算符号
+```
+let a = 10;
+let b = 20;
+let c = 30;
+++a;
+a++;
+e = ++a +(++b)+(c++) + a++;
+```
+77
+### 数组计算
+```
+let k = 0;
+for(let i=0,j =0; i < 10,j < 6;i++,j++) {
+  
+    k = i + j
+}
+
+10
+```
+
+
 
 
 
