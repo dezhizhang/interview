@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 18:10:48
+ * @LastEditTime: 2021-03-06 18:53:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -121,6 +121,22 @@ for(let i=0;i < arr.length;i++) {
 ```
 Object.prototype.toString.call(arr) === '[object Array]'
 ```
+### 数组的移位
+```
+let arr = [3,6,2,4,1,5];
+for(let i=arr.length - 1;i >= 0;i--) {
+    arr.push(...arr.splice(i,1))
+}
+```
+###数组移位 
+```
+let arr = [3,6,2,4,1,5];
+for(let i=arr.length - 1;i >=0;i--) {
+    newArr.push(arr[i]);
+}
+
+```
+
 
 
 
