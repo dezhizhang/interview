@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 19:50:09
+ * @LastEditTime: 2021-03-06 21:11:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -353,6 +353,29 @@ obj2.c.x = 100;
 console.log(obj === obj2);
 console.log(obj);
 ```
+### 找到字符串中出现次数最多的
+```
+let str = "abcdaba";
+let json = {};
+for(let i=0;i < str.length;i++) {
+    if(json[str[i]]) {
+        json[str[i]] = json[str[i]]+1
+    }else {
+        json[str[i]] = 1
+    }
+}
+
+let maxKey = 0;
+let max = '';
+for(let key in json) {
+    if(json[key] > maxKey) {
+        maxKey = json[key]
+        max = key;
+    }
+}
+
+```
+
 
 
 
