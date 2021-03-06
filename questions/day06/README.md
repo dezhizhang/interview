@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 21:25:03
+ * @LastEditTime: 2021-03-06 21:54:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -388,6 +388,19 @@ for(let i=str.length - 1;i >=0;i--) {
 let str = "12345678";
 let newstr = str.split('').reverse().join('');
 ```
+### 对像地址的引用
+```
+ function changeObjectProperty(o) {
+     o.siteUrl = 'http://www.csser.com/';
+     o = new Object();
+     o.siteUrl = 'http://www.popcg.com';
+ }
+
+ let csser = new Object();
+ changeObjectProperty(csser);
+ console.log(csser.siteUrl);
+ ```
+ 
 
 
 
