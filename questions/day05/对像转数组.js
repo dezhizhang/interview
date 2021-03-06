@@ -1,28 +1,53 @@
 /*
  * @Author: your name
  * @Date: 2021-03-06 12:22:37
- * @LastEditTime: 2021-03-06 12:29:43
+ * @LastEditTime: 2021-03-06 12:41:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /questions/day05/对像转数组.js
  */
 
+// let obj = {
+//     1:222,
+//     2:123,
+//     5:888
+// }
+// let arr = [];
+// for(let i=0;i <= 12;i++) {
+//     if(obj[i]) {
+//         arr[i] = obj[i]
+//     } else {
+//         arr[i] = null
+//     }
+// }
+
+// arr.shift();
+// console.log(arr);
+
+
+// let arr = new Array(12).fill(null).map((item,index) => obj[index+1] || null);
+
+// console.log(arr)
+
+// let obj = {
+//     1:222,
+//     2:123,
+//     5:888,
+// }
+
+// let arr = new Array(12).fill(null).map((item,index) => obj[index+1] || null);
+// console.log(arr);
+
 let obj = {
     1:222,
     2:123,
-    5:888
-}
-let arr = [];
-for(let i=0;i <= 12;i++) {
-    if(obj[i]) {
-        arr[i] = obj[i]
-    } else {
-        arr[i] = null
-    }
+    5:888,
 }
 
-arr.shift();
-
+let arr = new Array(12).fill(null).map((item,index) => obj[index+1] || null);
 
 console.log(arr);
+
+
+
 

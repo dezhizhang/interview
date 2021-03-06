@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 10:25:44
- * @LastEditTime: 2021-03-06 12:30:17
+ * @LastEditTime: 2021-03-06 12:34:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /questions/day05/README.md
@@ -74,6 +74,19 @@ for(let i=0;i <= 12;i++) {
 arr.shift();
 console.log(arr);
 ```
+### 对像转数组方法2
+```
+let obj = {
+    1:222,
+    2:123,
+    5:888,
+}
+
+let arr = new Array(12).fill(null).map((item,index) => obj[index+1] || null);
+
+console.log(arr)
+```
+
 
 
 
