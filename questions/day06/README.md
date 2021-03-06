@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 17:44:33
+ * @LastEditTime: 2021-03-06 17:53:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -96,7 +96,7 @@ c.say();
 ```
 ### 闭包函数
 ```
- let lis = document.querySelectorAll('li');
+let lis = document.querySelectorAll('li');
     for(let i=0;i < lis.length;i++) {
         lis[i].onclick= (function(index) {
             return function() {
@@ -105,6 +105,19 @@ c.say();
     })(i)
 }
 ```
+### 数组去重
+```
+let arr = [1,3,1,5,2,3,7];
+let ary = [];
+for(let i=0;i < arr.length;i++) {
+    let item = arr[i];
+    let newArr = arr.slice(i+1);
+    if(!newArr.includes(item)) {
+        ary.push(item)
+    }
+}
+```
+
 
 
 
