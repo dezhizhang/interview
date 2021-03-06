@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 10:25:44
- * @LastEditTime: 2021-03-06 10:45:17
+ * @LastEditTime: 2021-03-06 12:18:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /questions/day05/README.md
@@ -28,5 +28,34 @@ let b = 10;
 
 console.log(b);
 ```
+### 变量的值
+```
+let a = {
+    n:0,
+    toString:function() {
+        return ++this.n
+    }
+}
+if(a == 1 && a == 2 && a== 3) {
+    console.log('ok');
+}
+```
+### 对像的push方法
+```
+let obj = {
+    2:3,
+    3:4,
+    length:2,
+    push:Array.prototype.push
+}
+
+obj.push(1);
+obj.push(2);
+
+console.log(obj);
+
+```
+
+
 
 
