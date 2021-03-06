@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 21:21:41
+ * @LastEditTime: 2021-03-06 21:25:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -382,6 +382,11 @@ let newStr = '';
 for(let i=str.length - 1;i >=0;i--) {
     newStr+= `${str[i]}`
 }
+```
+### 字符串反转1
+```
+let str = "12345678";
+let newstr = str.split('').reverse().join('');
 ```
 
 
