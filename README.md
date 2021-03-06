@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 22:20:20
+ * @LastEditTime: 2021-03-06 23:33:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -431,6 +431,14 @@ let newstr = str.split('').reverse().join('');
  foo.a() //1
  
  ```
+ ### 隐式转换
+ ```
+ let foo = "11" + 2 - "1";
+ console.log(foo);
+ console.log(typeof foo);
+ 111
+ ```
+ 
  
  
 
