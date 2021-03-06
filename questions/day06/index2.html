@@ -1,0 +1,28 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-06 20:51:54
+ * @LastEditTime: 2021-03-06 20:54:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /interview/questions/day06/index2.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">按钮</button>
+    <script type="text/javascript">
+        let btn = document.getElementById('btn');
+        btn.onclick = function() {
+            let isCon = confirm('你确定要退出吗');
+            if(isCon) {
+                window.close();
+            }
+        }
+    </script>
+</body>
+</html>
