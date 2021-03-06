@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-06 17:53:19
+ * @LastEditTime: 2021-03-06 18:10:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -117,6 +117,11 @@ for(let i=0;i < arr.length;i++) {
     }
 }
 ```
+### 检测数组的方法
+```
+Object.prototype.toString.call(arr) === '[object Array]'
+```
+
 
 
 
