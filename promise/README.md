@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 01:19:16
- * @LastEditTime: 2021-03-07 17:00:36
+ * @LastEditTime: 2021-03-07 20:19:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/promise/README.md
@@ -110,6 +110,40 @@ value 1
 value 4
 
 ```
+### 异常穿透
+```
+new Promise((resolve,reject) => {
+    reject(1)
+}).then(value => {
+    console.log('onResolved1',value)
+    return 2
+}).then(value => {
+    console.log('onResolved2',value);
+    return 3
+}).catch(reason => {
+    console.log('reject',reason);
+});
+reject 1
+```
+### 中断Promise
+```
+new Promise((resolve,reject) => {
+    reject(1)
+}).then(value => {
+    console.log('onResolved1',value);
+    return 2
+}).then(value => {
+    console.log('onResolved2',value);
+    return 2
+}).catch(reason => {
+    console.log('reason',reason);
+    return new Promise((resolve,reject) => {})
+}).then(resolve => {
+    console.log('resolve',resolve);
+})
+```
+
+
 
 
 
