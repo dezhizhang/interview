@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 01:19:16
- * @LastEditTime: 2021-03-07 15:22:22
+ * @LastEditTime: 2021-03-07 16:16:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/promise/README.md
@@ -47,6 +47,33 @@ p.then(res => {
     console.log(rej)
 })
 ```
+### Promise.all方法
+```
+const p1 = new Promise((resolve,reject) => {
+    resolve(1);
+});
+
+const p2 = Promise.resolve(2);
+const p3 = Promise.reject(3);
+
+const pAll = Promise.all([p1,p2,p3]);
+pAll.then(value => {
+    console.log('value',value);
+},reason => {
+    console.log('reason',reason);
+});
+```
+### Promise.race方法
+```
+const pRace = Promise.race([p1,p2,p3]);
+pRace.then(value => {
+    console.log('value',value);
+},reason => {
+    console.log('reaseon',reason);
+})
+```
+
+
 
 
 
