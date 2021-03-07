@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 15:27:54
- * @LastEditTime: 2021-03-07 12:03:18
+ * @LastEditTime: 2021-03-07 18:41:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/questions/day06/README.md
@@ -438,70 +438,14 @@ let newstr = str.split('').reverse().join('');
  console.log(typeof foo);
  111
  ```
-shop系统
-一会员管理模块的开发
-1,储值管理 ->
-    1.1储值卡管理
-    1.2储值流水
-2,会员列表
-3,会员报表
-用到技术typescript+antd+dva+react+redux
-scm供应链系统
-1,批发管理
-    1.1批发销货单
-    1.2批发差异单
-    1.3批发退货单
-    1.4建财物料管理
-2订货会
-    1.1客服组管理
-    1.2公共商品池
-    1.3配化计划
-用到技术typescript+antd+umi+react+redux
-oms订单管理系统
-1分销app管理
-    1.1导购任务开发
-2会员管理
-    1等级规则
-    2会员管理
-用到技术typescript+antd+dva+react+redux
-agent代理商系统
-1,库存管理
-    1.1仓库管理
-    1.2上级库存查询
-    1.3库存明细查询
-门店app系统
-1门店管理
-    1.1收版管理模块
-    1.2收版调整模块
-    1.3选版
-    1.4会员管理
-    1.5次品管理
-    1.6门店商品
-    1.7数据分板
-用到技术flutter+provder+dio+event_bus
-从0到1由我和androd工程师两个人完成
-odm采购系统
-    1,代理商注册模块
-        1.1申请须知
-        1.2填写供应商资料
-        1.3填写企业资料
-        1.4上传资质
-        1.5上传环境图
-        1.6填写合作客户次料
-        1.7提交审核
-    2,首页模块
-        2.1上传样衣
-        2.2参与需求
-        2.3需求状态
-    3,消息模块
-    4,个人中心模块
-        4.1我的草稿
-        4.2的我需求
-        4.3子帐号审核
-        4.5供应商资料管理
-        4.6设置
-用到技术typescript+taro+taro-ui+redux+原生微信小程序
-odm从0到1由我开发完成
+ 
+ 
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 01:19:16
- * @LastEditTime: 2021-03-07 16:16:23
+ * @LastEditTime: 2021-03-07 17:00:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/promise/README.md
@@ -72,6 +72,45 @@ pRace.then(value => {
     console.log('reaseon',reason);
 })
 ```
+### Promise的异步执行
+```
+const p = new Promise((resolve,reject) => {
+    resolve(1);
+})
+
+p.then(value => {
+    console.log("value",value);
+},
+reson => {
+    console.log('reson',reson);
+});
+
+console.log('------')
+
+```
+### Promise中then的值由第一个then返回的值决定
+```
+const p = new Promise((resolve,reject) => {
+    resolve(1);
+});
+p.then(value => {
+    console.log('value',value);
+    return 4
+},
+reason => {
+    console.log('value',value);
+}).then(value => {
+    console.log('value',value);
+},
+reson => {
+  console.log('reson',reson);
+})
+
+value 1
+value 4
+
+```
+
 
 
 
