@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 20:28:19
- * @LastEditTime: 2021-03-07 20:29:05
+ * @LastEditTime: 2021-03-07 22:40:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/promise/lib/自定义promise.html
@@ -15,7 +15,16 @@
 </head>
 <body>
     <script src="./lib/promise.js" type="text/javascript">
-        
+        const p = new Promise((resolve,reject) => {
+            resolve(1)
+        }).then(value => {
+            console.log(value);
+            
+        },
+        reason => {
+            console.log('onReject',reason);
+        }
+        )
     </script>
 </body>
 </html>
