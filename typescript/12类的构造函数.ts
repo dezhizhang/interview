@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-08 22:39:09
- * @LastEditTime: 2021-03-08 22:46:01
+ * @LastEditTime: 2021-03-08 22:51:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/typescript/12类的构造函数.ts
