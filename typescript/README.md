@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 00:25:56
- * @LastEditTime: 2021-03-08 22:08:32
+ * @LastEditTime: 2021-03-08 23:26:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/typescript/README.md
@@ -80,6 +80,28 @@ class Girl extends Lady {
 let g = new Girl();
 console.log(g.sayLove())
 ```
+### get和set
+```
+ class Peron{
+    private name:string = 'hello'
+    get change(){
+        return this.name
+    } 
+    set setChange(value) {
+        this.name = value;
+    }
+    constructor() {
+
+    }
+ }
+
+ let p = new Peron();
+ p.setChange = '刘德华';
+ let res = p.change;
+ console.log(res);
+ 
+ ```
+ 
 
 
 
