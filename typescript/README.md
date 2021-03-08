@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 00:25:56
- * @LastEditTime: 2021-03-07 23:53:16
+ * @LastEditTime: 2021-03-08 22:08:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/typescript/README.md
@@ -64,6 +64,23 @@ const arr:(number | string) [] = [1,2,"string",2];
 console.log(arr);
 
 ```
+### 类的重写
+```
+class Lady{
+    content = "hello"
+    sayHello() {
+        return this.content;
+    }
+}
+class Girl extends Lady {
+    sayLove() {
+        return super.sayHello() + 'world';
+    }
+}
+let g = new Girl();
+console.log(g.sayLove())
+```
+
 
 
  
