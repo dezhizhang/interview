@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-07 00:25:56
- * @LastEditTime: 2021-03-08 23:26:33
+ * @LastEditTime: 2021-03-09 00:05:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/typescript/README.md
@@ -101,6 +101,16 @@ console.log(g.sayLove())
  console.log(res);
  
  ```
+ ### 泛型
+ ```
+function join<T>(first:T,second:T) {
+    return `${first}  ${second}`;
+}
+
+const res = join<String>('hello','world');
+console.log('res',res);
+```
+
  
 
 
