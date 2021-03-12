@@ -8,6 +8,6 @@
  */
 
 
- let arr = []
- console.log(arr.constructor === Array);
+//  let arr = []
+//  console.log(arr.constructor === Array);
  
