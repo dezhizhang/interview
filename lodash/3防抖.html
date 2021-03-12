@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-12 22:40:49
+ * @LastEditTime: 2021-03-12 23:17:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /interview/lodash/3防抖.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn" >防抖</button>
+    <script type="text/javascript">
+        let btn = document.querySelector('button');
+        btn.onclick = debounce(handleClick,500);
+        function debounce(callback,delay) {
+            let that = this;
+            return function(event) {
+                if(callback.hasOwnProperty('timeoutId')) {
+                    clearTimeout(callback.timeoutId)
+                }
+                callback.timeoutId = setTimeout(() => {
+                    callback.call(this,event);
+                    delete callback.timeoutId;
+                },delay)
+            }
+        }
+        
+        function handleClick(event) {
+            console.log('防抖',event);
+        }
+    </script>
+</body>
+</html>
