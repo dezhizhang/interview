@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-11 07:17:24
- * @LastEditTime: 2021-03-11 23:56:54
+ * @LastEditTime: 2021-03-12 08:29:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/Highfrequency/README.md
@@ -198,6 +198,41 @@ MyPromise.prototype.then = function(onResolved,onRejected) {
      return results
  }
  ```
+ ### new的实现
+ ```
+function create() {
+    let obj = {}
+    let Con = [].shift.call(arguments)
+    obj.__proto__ = Con.prototype;
+    let result = Con.applay(obj,arguments);
+    return result instanceof Object ? result:obj;
+}
+```
+### 生命周期
+#### 初如化状态
+```
+1,getInitialState: 获取每个实例的初始化状态
+2,componentWillMount: 组件即将被装载，渲染到页面上 
+3,render:组件在这里生成虚拟的DOM节点
+4,componentDidMount 组件真正装载之后
+```
+#### 运行中的状态
+```
+1,componentWillReceiveProps:组件将要接收到属性的时候调用
+2,shouldComponentUpdate:组件接收到新属性或者新状态的时候
+3,componentWillUpdate:组件即将更新不能修改属性和状态
+4,render:组件重新描绘
+5,componentDidUpdate：组件已经更新
+```
+### 销毁阶段
+```
+1,componentWillUnmount:组件即将销毁
+```
+
+
+
+
+
  
 
 
