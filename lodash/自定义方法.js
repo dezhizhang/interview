@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-13 20:17:02
- * @LastEditTime: 2021-03-13 20:54:12
+ * @LastEditTime: 2021-03-20 23:42:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /interview/lodash/自定义方法.js
@@ -93,12 +93,6 @@ const f = arr.filter(item => item > 6);
 const find = arr.find(item => item === 15);
 const findIndex = arr.findIndex(item => item === 15);
 
-
-
-// console.log('res',res);
-// console.log('r',r);
-// console.log('f',f);
-// console.log('find',find);
 
 
 
