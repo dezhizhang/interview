@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-24 20:03:22
- * @LastEditTime: 2021-03-24 20:03:22
+ * @LastEditTime: 2021-03-24 23:34:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /javascript/prototype/index.html
@@ -14,6 +14,24 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script type="text/javascript">
+        // console.log(Function.prototype instanceof Object);
+        // console.log(Object.prototype instanceof Object);
+
+        function Fn() {
+
+        }
+
+        Fn.prototype.a = 'xxx';
+        let fn1 = new Fn();
+        console.log(fn1.a);
+
+        let fn2 = new Fn();
+        fn2.a = 'yyy';
+        console.log(fn1.a);
+        
+        
+        
+    </script>
 </body>
 </html>
