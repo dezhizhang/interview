@@ -1,13 +1,12 @@
 /*
  * :file description:
- * :name: /jsApi/src/index.js
+ * :name: /jsApi/examples/jquery.js
  * :author: 张德志
  * :copyright: (c) 2024, Tungee
- * :date created: 2024-04-18 05:51:29
+ * :date created: 2024-04-19 23:00:11
  * :last editor: 张德志
- * :date last edited: 2024-04-19 22:58:05
+ * :date last edited: 2024-04-19 23:00:17
  */
-
 class JQuery {
   constructor(selector) {
     const result = document.querySelectorAll(selector);
