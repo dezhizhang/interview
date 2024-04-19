@@ -189,3 +189,16 @@ function deepClone(obj = {}) {
 }
 
 ```
+###
+```js
+const obj = {
+  x:100,
+}
+
+if(obj.a == null) {
+
+}
+
+// 相当于
+// if(obj.a === null || obj.a === undefined) {}
+```
