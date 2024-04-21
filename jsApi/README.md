@@ -202,3 +202,32 @@ if(obj.a == null) {
 // 相当于
 // if(obj.a === null || obj.a === undefined) {}
 ```
+### 闭包
+```js
+function create() {
+  let a = 100;
+  return function() {
+    console.log(a);
+  }
+}
+
+const fn = create();
+
+const a = 200;
+fn(); // 100
+```
+### 闭包函数作为参数
+```js
+function print(fn) {
+  const a = 200;
+  fn();
+}
+
+const a = 100;
+function fn() {
+  console.log(a);
+}
+
+print(fn);
+
+```
