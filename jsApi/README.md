@@ -234,3 +234,17 @@ function fn() {
 print(fn);
 
 ```
+### 异步处理
+```js
+import $ from 'jQuery';
+
+
+console.log('start');
+
+$.get('https://cnodejs.org/api/v1/topics',function(data) {
+  console.log('data',data);
+});
+
+console.log('end');
+
+```
