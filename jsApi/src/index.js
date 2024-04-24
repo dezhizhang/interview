@@ -5,17 +5,24 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-24 22:42:30
+ * :date last edited: 2024-04-24 22:53:00
  */
 
-import $ from 'jQuery';
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = document.createElement('img');
+    img.onload = () => {
+      resolve(img);
+    };
+    img.onerror = () => {
+      reject(new Error('图片加载失败'));
+    };
+    img.src = url;
+  });
 
+}
 
-console.log('start');
-
-$.get('https://cnodejs.org/api/v1/topics',function(data) {
-  console.log('data',data);
-});
-
-console.log('end');
-
+loadImage('https://avatars.githubusercontent.com/u/5820929?v=4&s=120').then((res) => {
+  document.body.appendChild(res);
+  console.log(res)
+})
