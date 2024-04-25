@@ -289,3 +289,25 @@ div1.addEventListener('click', (event) => {
   console.log(event.target);
 });
 ```
+### 代理函数
+```ts
+function bindEvent(elem, type, selector, fn) {
+  if (fn == null) {
+    fn = selector;
+    selector = null;
+  }
+
+  elem.addEventListender(type, (event) => {
+    const target = event.target;
+    if (selector) {
+      // 代理邦定
+      if (target.matches(selector)) {
+        fn.call(target, event);
+      }
+      return;
+    }
+    fn.call(target, event);
+  });
+}
+
+```

@@ -5,30 +5,24 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-25 22:34:28
+ * :date last edited: 2024-04-25 22:44:03
  */
 
+function bindEvent(elem, type, selector, fn) {
+  if (fn == null) {
+    fn = selector;
+    selector = null;
+  }
 
-
-// const btn = document.getElementById('btn');
-
-// function bindEvent(elem,type,fn) {
-//   elem.addEventListener(type,fn);
-// }
-
-// bindEvent(btn,'click',(ev) => {
-//   console.log(ev);
-// });
-
-// bindEvent(document.body,'click',(ev) => {
-//   console.log('hello')
-// })
-
-const div1 = document.getElementById('div1');
-
-div1.addEventListener('click',(event) => {
-  event.preventDefault();
-  console.log(event.target);
-});
-
-
+  elem.addEventListender(type, (event) => {
+    const target = event.target;
+    if (selector) {
+      // 代理邦定
+      if (target.matches(selector)) {
+        fn.call(target, event);
+      }
+      return;
+    }
+    fn.call(target, event);
+  });
+}
