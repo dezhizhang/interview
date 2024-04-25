@@ -316,13 +316,30 @@ function bindEvent(elem, type, selector, fn) {
 const xhr = new XMLHttpRequest();
 xhr.open('GET','https://cnodejs.org/api/v1/topics',false);
 xhr.onreadystatechange = function() {
-  if(xhr.readyState === 4) {
-    if(xhr.status === 200) {
-      console.log(xhr.responseText);
-    }
+  if(xhr.readyState === 4 && xhr.status === 200) {
+    console.log(JSON.parse(xhr.responseText))
   }
 }
 
 xhr.send(null);
+
+```
+### Promise版ajax
+```js
+function ajax(url) {
+  return new Promise((resolve,reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET',url,true);
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState === 4 && xhr.status === 200) {
+        resolve(JSON.parse(xhr.responseText))
+      }else if(xhr.status === 400) {
+        reject(new Error('请求出错'))
+      }
+      
+    }
+    xhr.send(null)
+  })
+}
 
 ```
