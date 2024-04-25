@@ -5,24 +5,17 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-25 22:44:03
+ * :date last edited: 2024-04-25 22:55:47
  */
 
-function bindEvent(elem, type, selector, fn) {
-  if (fn == null) {
-    fn = selector;
-    selector = null;
-  }
-
-  elem.addEventListender(type, (event) => {
-    const target = event.target;
-    if (selector) {
-      // 代理邦定
-      if (target.matches(selector)) {
-        fn.call(target, event);
-      }
-      return;
+const xhr = new XMLHttpRequest();
+xhr.open('GET','https://cnodejs.org/api/v1/topics',false);
+xhr.onreadystatechange = function() {
+  if(xhr.readyState === 4) {
+    if(xhr.status === 200) {
+      console.log(xhr.responseText);
     }
-    fn.call(target, event);
-  });
+  }
 }
+
+xhr.send(null);

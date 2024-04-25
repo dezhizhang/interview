@@ -311,3 +311,18 @@ function bindEvent(elem, type, selector, fn) {
 }
 
 ```
+### ajax
+```js
+const xhr = new XMLHttpRequest();
+xhr.open('GET','https://cnodejs.org/api/v1/topics',false);
+xhr.onreadystatechange = function() {
+  if(xhr.readyState === 4) {
+    if(xhr.status === 200) {
+      console.log(xhr.responseText);
+    }
+  }
+}
+
+xhr.send(null);
+
+```
