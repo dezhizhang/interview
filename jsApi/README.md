@@ -1,38 +1,41 @@
+# 原生 jsApi
 
-
-# 原生jsApi
 # 面试视频https://www.bilibili.com/video/BV1sN411974w/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8
 
 ### Promise
-1. await 相当于Promise.then 处理不了Promise.reject
-2. 
-```js
-!(async function() {
-    const p4 = Promise.reject('err1');
-    const d = await p4;
-    console.log('data',d);
-})()
 
+1. await 相当于 Promise.then 处理不了 Promise.reject
+2.
+
+```js
+!(async function () {
+  const p4 = Promise.reject('err1');
+  const d = await p4;
+  console.log('data', d);
+})();
 ```
 
 ### 微任务执行时机比宏任务时机早
+
 1. 宏任务 setInterval,setTimeout,Ajax,Dom
 2. 微任务 async/await
+
 ```js
 console.log(100);
 
 setTimeout(() => {
-    console.log(200);
+  console.log(200);
 });
 
 Promise.resolve().then(() => {
-    console.log(300);
+  console.log(300);
 });
 
 console.log(400);
 ```
 
-### 手写promise TODO 回来重点看
+### 手写 promise TODO 回来重点看
+
 ```js
 class MyPromise {
   state = 'pending';
@@ -165,9 +168,10 @@ MyPromise.race = function (promiseList) {
   });
   return p1;
 };
-
 ```
+
 ### 深拷贝
+
 ```js
 function deepClone(obj = {}) {
   if (typeof obj !== 'object' || obj == null) {
@@ -190,28 +194,30 @@ function deepClone(obj = {}) {
 
   return result;
 }
-
 ```
+
 ###
+
 ```js
 const obj = {
-  x:100,
-}
+  x: 100,
+};
 
-if(obj.a == null) {
-
+if (obj.a == null) {
 }
 
 // 相当于
 // if(obj.a === null || obj.a === undefined) {}
 ```
+
 ### 闭包
+
 ```js
 function create() {
   let a = 100;
-  return function() {
+  return function () {
     console.log(a);
-  }
+  };
 }
 
 const fn = create();
@@ -219,7 +225,9 @@ const fn = create();
 const a = 200;
 fn(); // 100
 ```
+
 ### 闭包函数作为参数
+
 ```js
 function print(fn) {
   const a = 200;
@@ -232,23 +240,24 @@ function fn() {
 }
 
 print(fn);
-
 ```
+
 ### 异步处理
+
 ```js
 import $ from 'jQuery';
 
-
 console.log('start');
 
-$.get('https://cnodejs.org/api/v1/topics',function(data) {
-  console.log('data',data);
+$.get('https://cnodejs.org/api/v1/topics', function (data) {
+  console.log('data', data);
 });
 
 console.log('end');
-
 ```
-### promise加载图片
+
+### promise 加载图片
+
 ```js
 function loadImage(url) {
   return new Promise((resolve, reject) => {
@@ -261,7 +270,22 @@ function loadImage(url) {
     };
     img.src = url;
   });
-
 }
+```
 
+### 事件代理
+
+```js
+<div id="div1">
+  <a href="#">aaa</a>
+  <a href="#">bbb</a>
+  <a href="#">ccc</a>
+</div>;
+
+const div1 = document.getElementById('div1');
+
+div1.addEventListener('click', (event) => {
+  event.preventDefault();
+  console.log(event.target);
+});
 ```
