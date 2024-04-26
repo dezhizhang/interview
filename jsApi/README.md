@@ -343,3 +343,36 @@ function ajax(url) {
 }
 
 ```
+### http和https
+
+1. http是明文传输，敏感信息容易被中间劫持
+2. https = http + 加密 劫持了也无法解密
+
+### 加密方式 
+1. 对称加密： 一个key同负责加密，解密
+2. 非对称加密： 一对key,A 加密之后只能用B来解密
+https 同时用到对称加密和非对称加密
+
+### 防抖函数
+```js
+const oInput = document.getElementById('input');
+
+function debounce(fn, delay = 500) {
+  let timer = null;
+  return function () {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, arguments);
+      timer = null;
+    }, delay);
+  };
+}
+
+oInput.addEventListener('keyup',debounce(() => {
+  console.log(oInput.value);
+}));
+```
+
+
