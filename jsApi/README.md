@@ -374,5 +374,29 @@ oInput.addEventListener('keyup',debounce(() => {
   console.log(oInput.value);
 }));
 ```
+### 节流函数
+
+```js
+const div1 = document.getElementById('div1');
+
+function throttle(fn,delay = 200) {
+  let timer = null;
+  return function() {
+    if(timer) {
+      return
+    }
+    timer = setTimeout(() => {
+      fn.apply(this,arguments);
+      timer = null
+    },delay)
+  }
+}
+
+div1.addEventListener('drag',throttle((event) => {
+  console.log(event.offsetX);
+}))
+```
+
+
 
 
