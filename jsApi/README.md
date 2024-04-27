@@ -444,6 +444,16 @@ const obj2 = {
 };
 
 ```
+### splice的用法
+```js
+const arr = [10,20,30,40,50];
+const result = arr.splice(1,2,'a','b','c');
+
+console.log('arr',arr);
+console.log('result',result);
+```
+
+
 
 
 
