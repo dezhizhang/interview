@@ -452,6 +452,15 @@ const result = arr.splice(1,2,'a','b','c');
 console.log('arr',arr);
 console.log('result',result);
 ```
+### map操作
+```js
+const arr = [10,20,30].map((num,index) => {
+  return parseInt(num,index)
+});
+
+console.log(arr);
+
+```
 
 
 
