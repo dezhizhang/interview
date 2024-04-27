@@ -494,6 +494,12 @@ const func = User.getCount;
 console.log(func());
 
 ```
+### trim方法
+```js
+String.prototype.trim = function() {
+  return this.replace(/^\s+/,'').replace('/\s+$','')
+}
+```
 
 
 
