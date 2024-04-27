@@ -461,7 +461,24 @@ const arr = [10,20,30].map((num,index) => {
 console.log(arr);
 
 ```
+### 函数场明函数提升
+```js
+const result = sum(10, 20);
 
+function sum(x, y) {
+  return x + y;
+}
+
+```
+### 函数表过式不会变量提升
+```js
+const result = sum(10,20);
+console.log('result',result);
+
+const sum = function(x,y) {
+  return x + y;
+}
+```
 
 
 
