@@ -479,6 +479,21 @@ const sum = function(x,y) {
   return x + y;
 }
 ```
+### this的场影题
+```js
+const User = {
+  count:1,
+  getCount:function() {
+    return this.count;
+  }
+}
+
+console.log(User.getCount());
+const func = User.getCount;
+
+console.log(func());
+
+```
 
 
 
