@@ -500,6 +500,21 @@ String.prototype.trim = function() {
   return this.replace(/^\s+/,'').replace('/\s+$','')
 }
 ```
+### 数组拍平
+```js
+function flatten(arr) {
+  const isDeep = arr.some(item => item instanceof Array);
+  if(!isDeep) {
+    return arr;
+  }
+
+  const result = Array.prototype.concat.apply([],arr);
+  return flatten(result);
+
+}
+
+const result = flatten([[1,2],[3,4]]);
+```
 
 
 
