@@ -516,7 +516,7 @@ function flatten(arr) {
 
 const result = flatten([[1,2],[3,4]]);
 ```
-### map类型
+### map类型有序类型
 ```js
 const m = new Map([
   ['k1','hello'],
@@ -527,6 +527,12 @@ const m = new Map([
 m.set('name','hello');
 
 m.forEach((key,value) => console.log({key,value}))
+```
+
+### set无序速度快
+```js
+const set = new Set([10,20,30,40]);
+set.forEach((val) => console.log(val));
 ```
 
 
