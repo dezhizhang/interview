@@ -5,13 +5,13 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-28 23:09:50
+ * :date last edited: 2024-04-28 23:26:21
  */
 
 function isMatch(left, right) {
-  if (left === '{' && right === '}') return true;
-  if (left === '[' && right === ']') return true;
   if (left === '(' && right === ')') return true;
+  if (left === '[' && right === ']') return true;
+  if (left === '{' && right === '}') return true;
 
   return false;
 }
@@ -21,14 +21,14 @@ function matchBracket(str) {
   if (length === 0) return true;
 
   const stack = [];
-  const leftSymbols = '([{';
-  const rightSymbols = '}])';
+  const leftSymble = '([{';
+  const rightSymble = '}])';
 
   for (let i = 0; i < length; i++) {
     const s = str[i];
-    if (leftSymbols.includes(s)) {
+    if (leftSymble.includes(s)) {
       stack.push(s);
-    } else if (rightSymbols.includes(s)) {
+    } else if (rightSymble.includes(s)) {
       const top = stack[stack.length - 1];
       if (isMatch(top, s)) {
         stack.pop();
@@ -40,6 +40,6 @@ function matchBracket(str) {
   return stack.length === 0;
 }
 
-const str = '([{(}])';
+const str = '([{}])';
 
 console.log(matchBracket(str));
