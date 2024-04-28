@@ -551,6 +551,18 @@ vMap.set(userInfo,cityInfo);
 console.log(vMap.get(userInfo));
 
 ```
+### reduce求和函数
+```js
+const arr = [10,20,30,40,50];
+
+const sum = arr.reduce((sum,curVal,index,arr) => {
+  console.log({sum,curVal,index,arr})
+  return sum + curVal;
+},0);
+
+console.log('sun',sum);
+
+```
 
 
 

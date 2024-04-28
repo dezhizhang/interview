@@ -5,27 +5,18 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-28 20:09:04
+ * :date last edited: 2024-04-28 20:15:50
  */
 
 
+const arr = [10,20,30,40,50];
 
+const sum = arr.reduce((sum,curVal,index,arr) => {
+  console.log({sum,curVal,index,arr})
+  return sum + curVal;
+},0);
 
-const vMap = new WeakMap();
-
-const userInfo = {
-  name:'hello',
-}
-
-const cityInfo = {
-  name:'world'
-}
-
-vMap.set(userInfo,cityInfo);
-
-console.log(vMap.get(userInfo));
-
-
+console.log('sun',sum);
 
 
 
