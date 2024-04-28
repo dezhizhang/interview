@@ -5,23 +5,24 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-27 17:22:37
+ * :date last edited: 2024-04-28 19:31:48
  */
 
-function flatten(arr) {
-  const isDeep = arr.some(item => item instanceof Array);
-  if(!isDeep) {
-    return arr;
-  }
+const m = new Map([
+  ['k1','hello'],
+  ['k2',100],
 
-  const result = Array.prototype.concat.apply([],arr);
-  return flatten(result);
-  
-}
+]);
 
-const result = flatten([[1,2],[3,4]]);
+m.set('name','hello');
 
-console.log(result);
+m.forEach((key,value) => console.log({key,value}))
+
+console.log(m);
+
+
+
+
 
 
 
