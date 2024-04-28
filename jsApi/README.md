@@ -534,6 +534,24 @@ m.forEach((key,value) => console.log({key,value}))
 const set = new Set([10,20,30,40]);
 set.forEach((val) => console.log(val));
 ```
+### WeakMap
+```js
+const vMap = new WeakMap();
+
+const userInfo = {
+  name:'hello',
+}
+
+const cityInfo = {
+  name:'world'
+}
+
+vMap.set(userInfo,cityInfo);
+
+console.log(vMap.get(userInfo));
+
+```
+
 
 
 
