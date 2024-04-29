@@ -652,6 +652,51 @@ const str = '([{}])';
 console.log(matchBracket(str));
 ```
 
+### 栈模拟队列
+```js
+class Queue{
+  stack1 = [];
+  stack2 = [];
+  constructor() {
+
+  }
+
+  add(n) {
+    this.stack1.push(n);
+  }
+
+  delete() {
+    let result;
+    const stack1 = this.stack1;
+    const stack2 = this.stack2;
+
+    while(stack1.length) {
+      const n = stack1.pop();
+      if(n!= null) {
+        stack2.push(n);
+      }
+    }
+
+    // 执行stack pop
+    result = stack2.pop();
+    while(stack2.length) {
+      const n = stack2.pop();
+      if(n != null) {
+        stack1.push(n);
+      }
+    }
+
+    return result || null;
+
+  }
+
+  get length() {
+    return this.stack1.length;
+  }
+}
+
+```
+
 
 
 

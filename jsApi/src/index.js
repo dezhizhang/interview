@@ -5,41 +5,61 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-28 23:26:21
+ * :date last edited: 2024-04-29 20:59:08
  */
 
-function isMatch(left, right) {
-  if (left === '(' && right === ')') return true;
-  if (left === '[' && right === ']') return true;
-  if (left === '{' && right === '}') return true;
 
-  return false;
-}
+class Queue{
+  stack1 = [];
+  stack2 = [];
+  constructor() {
 
-function matchBracket(str) {
-  const length = str.length;
-  if (length === 0) return true;
+  }
 
-  const stack = [];
-  const leftSymble = '([{';
-  const rightSymble = '}])';
+  add(n) {
+    this.stack1.push(n);
+  }
 
-  for (let i = 0; i < length; i++) {
-    const s = str[i];
-    if (leftSymble.includes(s)) {
-      stack.push(s);
-    } else if (rightSymble.includes(s)) {
-      const top = stack[stack.length - 1];
-      if (isMatch(top, s)) {
-        stack.pop();
-      } else {
-        return false;
+  delete() {
+    let result;
+    const stack1 = this.stack1;
+    const stack2 = this.stack2;
+
+    while(stack1.length) {
+      const n = stack1.pop();
+      if(n!= null) {
+        stack2.push(n);
       }
     }
+
+    // 执行stack pop
+    result = stack2.pop();
+    while(stack2.length) {
+      const n = stack2.pop();
+      if(n != null) {
+        stack1.push(n);
+      }
+    }
+
+    return result || null;
+
   }
-  return stack.length === 0;
+
+  get length() {
+    return this.stack1.length;
+  }
 }
 
-const str = '([{}])';
+const queue = new Queue();
+queue.add(1);
+queue.add(2);
+queue.add(3);
 
-console.log(matchBracket(str));
+console.log(queue.length);
+
+const n = queue.delete();
+console.log(n);
+
+
+const n2 = queue.delete();
+console.log(n2);
