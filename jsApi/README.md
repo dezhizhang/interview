@@ -696,6 +696,61 @@ class Queue{
 }
 
 ```
+### 链表反转
+```js
+// 链表反转
+function reverseLinkList(listNode) {
+  let prevNode;
+  let curNode;
+  let nextNode = listNode;
+
+
+  while(nextNode) {
+    if(curNode && !prevNode) {
+      delete curNode.next;
+    }
+
+    if(curNode && prevNode) {
+      curNode.next = prevNode;
+    }
+
+    prevNode = curNode;
+    curNode = nextNode;
+    nextNode = nextNode.next;
+  }
+
+
+  curNode.next = prevNode;
+
+  return curNode; 
+}
+
+function createLinkList(arr) {
+  const length = arr.length;
+
+  if(length === 0) throw new Error('数组为空');
+
+  let curNode = {
+    value:arr[length - 1]
+  }
+
+  if(length === 1) return curNode;
+
+  for(let i = length - 2;i >=0;i--) {
+    curNode = {
+      value:arr[i],
+      next:curNode
+    }
+  }
+
+  return curNode;
+
+}
+
+const n = createLinkList([1,2,3,4]);
+
+console.log(reverseLinkList(n));
+```
 
 
 

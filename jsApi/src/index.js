@@ -5,61 +5,64 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-04-29 20:59:08
+ * :date last edited: 2024-04-29 21:57:46
  */
 
+// 链表反转
+function reverseLinkList(listNode) {
+  let prevNode;
+  let curNode;
+  let nextNode = listNode;
 
-class Queue{
-  stack1 = [];
-  stack2 = [];
-  constructor() {
 
-  }
-
-  add(n) {
-    this.stack1.push(n);
-  }
-
-  delete() {
-    let result;
-    const stack1 = this.stack1;
-    const stack2 = this.stack2;
-
-    while(stack1.length) {
-      const n = stack1.pop();
-      if(n!= null) {
-        stack2.push(n);
-      }
+  while(nextNode) {
+    if(curNode && !prevNode) {
+      delete curNode.next;
     }
 
-    // 执行stack pop
-    result = stack2.pop();
-    while(stack2.length) {
-      const n = stack2.pop();
-      if(n != null) {
-        stack1.push(n);
-      }
+    if(curNode && prevNode) {
+      curNode.next = prevNode;
     }
 
-    return result || null;
-
+    prevNode = curNode;
+    curNode = nextNode;
+    nextNode = nextNode.next;
   }
 
-  get length() {
-    return this.stack1.length;
-  }
+
+  curNode.next = prevNode;
+
+  return curNode;
+  
 }
 
-const queue = new Queue();
-queue.add(1);
-queue.add(2);
-queue.add(3);
 
-console.log(queue.length);
+function createLinkList(arr) {
+  const length = arr.length;
 
-const n = queue.delete();
-console.log(n);
+  if(length === 0) throw new Error('数组为空');
+
+  let curNode = {
+    value:arr[length - 1]
+  }
+
+  if(length === 1) return curNode;
+
+  for(let i = length - 2;i >=0;i--) {
+    curNode = {
+      value:arr[i],
+      next:curNode
+    }
+  }
+
+  return curNode;
+
+}
 
 
-const n2 = queue.delete();
-console.log(n2);
+const n = createLinkList([1,2,3,4]);
+
+console.log(reverseLinkList(n));
+
+
+
