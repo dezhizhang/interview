@@ -59,7 +59,7 @@ class App extends React.PureComponent {
 export default App;
 ```
 
-### setState可能被合并
+### setState 对像可能被合并
 
 ```js
 handleIncrement() {
@@ -75,6 +75,31 @@ handleIncrement() {
     });
     this.setState({
       count: this.state.count + 1,
+    });
+  }
+```
+
+### setState 函数不会合并
+
+```jsx
+handleIncrement() {
+    // setState 可能被合并
+    this.setState((prevState) => {
+      return {
+        count: prevState.count + 1,
+      };
+    });
+
+    this.setState((prevState) => {
+      return {
+        count: prevState.count + 1,
+      };
+    });
+
+    this.setState((prevState) => {
+      return {
+        count: prevState.count + 1,
+      };
     });
   }
 ```
