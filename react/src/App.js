@@ -1,54 +1,34 @@
-/*
- * :file description:
- * :name: /react/src/App.js
- * :author: 张德志
- * :copyright: (c) 2024, Tungee
- * :date created: 2024-04-26 16:08:06
- * :last editor: 张德志
- * :date last edited: 2024-05-01 21:59:17
- */
+import React, { useEffect, useState } from 'react';
 
-import React from 'react';
+function App() {
+  const [value, setValue] = useState(100);
 
-class App extends React.PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      count: 0,
-    };
-    this.handleIncrement = this.handleIncrement.bind(this);
+  const hadnleClick = () => {
+   
+
+    setTimeout(() => {
+      setValue(value + 1);
+      setValue(value + 1);
+      console.log(value);
+    },0)
+
   }
 
-  handleIncrement() {
-    // setState 可能被合并
-    this.setState((prevState) => {
-      return {
-        count: prevState.count + 1,
-      };
-    });
+  useEffect(() => {
+    document.getElementById('btn').addEventListener('click',() => {
+      setValue(value + 1);
+      setValue(value + 1);
+      console.log(value);
+    })
+  },[])
 
-    this.setState((prevState) => {
-      return {
-        count: prevState.count + 1,
-      };
-    });
-
-    this.setState((prevState) => {
-      return {
-        count: prevState.count + 1,
-      };
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.count}
-        <br />
-        <button onClick={this.handleIncrement}>+</button>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <span>{value}</span>
+      <button onClick={hadnleClick}>增加</button>
+      <button id='btn'>btn</button>
+    </div>
+  );
 }
 
 export default App;

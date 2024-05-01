@@ -103,3 +103,41 @@ handleIncrement() {
     });
   }
 ```
+### React18合并+异步更新
+```js
+import React, { useEffect, useState } from 'react';
+
+function App() {
+  const [value, setValue] = useState(100);
+
+  const hadnleClick = () => {
+    // 合并+异步更新
+    setTimeout(() => {
+      setValue(value + 1);
+      setValue(value + 1);
+      console.log(value);
+    },0)
+
+  }
+
+  useEffect(() => {
+    // 自定义DOM邦定异步更新
+    document.getElementById('btn').addEventListener('click',() => {
+      setValue(value + 1);
+      setValue(value + 1);
+      console.log(value);
+    })
+  },[])
+
+  return (
+    <div>
+      <span>{value}</span>
+      <button onClick={hadnleClick}>增加</button>
+      <button id='btn'>btn</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
