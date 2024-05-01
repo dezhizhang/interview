@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-26 16:08:06
  * :last editor: 张德志
- * :date last edited: 2024-05-01 21:33:57
+ * :date last edited: 2024-05-01 21:54:21
  */
 
 import React from 'react';
@@ -20,16 +20,22 @@ class App extends React.PureComponent {
   }
 
   handleIncrement() {
-    const { count } = this.state;
-    // 不可变值
+    // setState 可能被合并
     this.setState({
-      count: count+ 1,
+      count: this.state.count + 1,
+    });
+    this.setState({
+      count: this.state.count + 1,
+    });
+    this.setState({
+      count: this.state.count + 1,
+    });
+    this.setState({
+      count: this.state.count + 1,
     });
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <div>
         {this.state.count}

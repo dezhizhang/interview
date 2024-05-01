@@ -1,9 +1,8 @@
+# react 面试
 
-# react面试
-### bind帮定this
+### bind 帮定 this
 
 ```jsx
-
 import React from 'react';
 
 class App extends React.PureComponent {
@@ -20,9 +19,10 @@ class App extends React.PureComponent {
 }
 
 export default App;
-
 ```
+
 ### state 不可变值
+
 ```js
 import React from 'react';
 
@@ -39,7 +39,7 @@ class App extends React.PureComponent {
     const { count } = this.state;
     // 不可变值
     this.setState({
-      count: count+ 1,
+      count: count + 1,
     });
   }
 
@@ -57,4 +57,24 @@ class App extends React.PureComponent {
 }
 
 export default App;
+```
+
+### setState可能被合并
+
+```js
+handleIncrement() {
+    // setState 可能被合并
+    this.setState({
+      count: this.state.count + 1,
+    });
+    this.setState({
+      count: this.state.count + 1,
+    });
+    this.setState({
+      count: this.state.count + 1,
+    });
+    this.setState({
+      count: this.state.count + 1,
+    });
+  }
 ```
