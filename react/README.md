@@ -170,4 +170,30 @@ class App extends React.PureComponent {
 export default App;
 
 ```
+###  ReactDOM.createPortal放在自定义组件下
 
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './App.css';
+class Portal extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'hello',
+    };
+    this.nameInputRef = React.createRef();
+    this.fileInputRef = React.createRef();
+  }
+  handleAlert = () => {
+    console.log(this.nameInputRef.current.value);
+  };
+  render() {
+    // ReactDOM.createPortal 自定义渲染位置
+    return ReactDOM.createPortal(<div className="model">{this.props.children}</div>,document.body);
+  }
+}
+
+export default Portal;
+
+```
