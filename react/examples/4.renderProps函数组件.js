@@ -1,11 +1,11 @@
 /*
- * :file description:
- * :name: /react/src/App.jsx
+ * :file description: 
+ * :name: /react/examples/4.renderProps函数组件.js
  * :author: 张德志
  * :copyright: (c) 2024, Tungee
- * :date created: 2024-05-02 15:25:45
+ * :date created: 2024-05-02 16:46:00
  * :last editor: 张德志
- * :date last edited: 2024-05-02 16:44:29
+ * :date last edited: 2024-05-02 16:46:07
  */
 import React from 'react';
 

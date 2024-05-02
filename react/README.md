@@ -216,3 +216,28 @@ class App extends React.PureComponent {
 
 export default App;
 ```
+### renderProps函数组件
+```jsx
+import React from 'react';
+
+class Factory extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name:"info"
+    }
+  }
+  render() {
+    return <div>{this.props.render(this.state)}</div>
+  }
+}
+
+
+class App extends React.Component {
+  render() {
+    return <Factory render={(props) =><p>{props.name}</p>}/>
+  }
+}
+
+export default App;
+```
