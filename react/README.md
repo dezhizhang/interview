@@ -140,4 +140,34 @@ function App() {
 
 export default App;
 ```
+### 通过ref获取值非受控组件组
+```jsx
+class App extends React.PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      name: 'hello',
+    };
+    this.nameInputRef = React.createRef();
+    this.fileInputRef = React.createRef();
+  }
+  handleAlert = () => {
+    // 通过ref获取值
+    console.log(this.nameInputRef.current.value);
+  };
+  render() {
+    return (
+      <div>
+        <input defaultValue={this.state.name} ref={this.nameInputRef} />
+        <span>state name:{this.state.name}</span>
+        <br />
+        <button onClick={this.handleAlert}>alert name</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
 
