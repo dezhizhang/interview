@@ -197,3 +197,22 @@ class Portal extends React.PureComponent {
 export default Portal;
 
 ```
+
+### React.lazy异点加载
+```jsx
+import React from 'react';
+
+const ReactLazy = React.lazy(() => import('./ReactLazy'));
+
+class App extends React.PureComponent {
+  render() {
+    return (
+      <React.Suspense fallback={<div>loaing...</div>}>
+        <ReactLazy />
+      </React.Suspense>
+    );
+  }
+}
+
+export default App;
+```
