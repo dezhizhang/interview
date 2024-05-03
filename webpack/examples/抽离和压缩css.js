@@ -1,13 +1,12 @@
 /*
- * :file description:
- * :name: /webpack/webpack.common.js
+ * :file description: 
+ * :name: /webpack/examples/抽离和压缩css.js
  * :author: 张德志
  * :copyright: (c) 2024, Tungee
- * :date created: 2024-05-03 21:07:12
+ * :date created: 2024-05-03 22:34:11
  * :last editor: 张德志
- * :date last edited: 2024-05-03 22:28:01
+ * :date last edited: 2024-05-03 22:34:12
  */
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');

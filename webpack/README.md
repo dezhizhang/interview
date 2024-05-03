@@ -78,3 +78,25 @@ output: {
   ],
 
 ```
+
+### 抽离和压缩css
+
+```js
+{
+  test: /\.css$/,
+  use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+},
+{
+  test: /\.less$/,
+  use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader', 'postcss-loader'],
+},
+
+new MiniCssExtractPlugin({
+  filename:'css/[hash:8].css',
+})
+
+optimization:{
+  // 压缩css
+  minimizer:[new TerserPlugin({}),new OptimizeCssAssetsPlugin()]
+}
+```
