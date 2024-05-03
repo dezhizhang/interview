@@ -1,6 +1,7 @@
 # webpack 面试题
 
 ### 基本配置
+
 ```js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -45,5 +46,35 @@ module.exports = {
     }),
   ],
 };
+```
+
+### 多入口与多出口
+
+```js
+// 多入口
+entry:{
+  index:path.resolve(__dirname,'src/index.js'),
+  other:path.resolve(__dirname,'src/other.js')
+},
+// 多出口
+output: {
+  path: path.resolve(__dirname, 'build'),
+  filename: '[name].[contentHash:8].js',
+},
+// 多页面
+ plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      inject: 'body',
+      filename:'index.html',
+      chunks:['index']
+    }),
+    new HtmlWebpackPlugin({
+      template:'./public/other.html',
+      inject: 'body',
+      filename:'other.html',
+      chunks:['other']
+    })
+  ],
 
 ```

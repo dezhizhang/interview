@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-05-03 21:07:12
  * :last editor: 张德志
- * :date last edited: 2024-05-03 21:32:22
+ * :date last edited: 2024-05-03 22:01:26
  */
 
 const path = require('path');
@@ -13,10 +13,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry:{
+    index:path.resolve(__dirname,'src/index.js'),
+    other:path.resolve(__dirname,'src/other.js')
+  },
+  // entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'build.js',
+    filename: '[name].[hash:8].js',
   },
   devServer: {
     port: 8000,
@@ -48,6 +52,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       inject: 'body',
+      filename:'index.html',
+      chunks:['index']
     }),
+    new HtmlWebpackPlugin({
+      template:'./public/other.html',
+      inject: 'body',
+      filename:'other.html',
+      chunks:['other']
+    })
   ],
 };
