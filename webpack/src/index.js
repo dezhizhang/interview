@@ -5,11 +5,10 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-05-03 20:43:02
  * :last editor: 张德志
- * :date last edited: 2024-05-04 21:36:00
+ * :date last edited: 2024-05-04 22:26:18
  */
-setTimeout(() => {
-    // 懒加载
-  import('./dynamic-data.js').then((res) => {
-    console.log('res', res.default);
-  });
-}, 1000);
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+// moment.locale('zh-cn');
+
+console.log('date',moment().format('ll'));

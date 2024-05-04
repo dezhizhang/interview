@@ -156,20 +156,36 @@ optimization:{
     },
   },
 ```
+
 ### 懒加载
+
 ```js
 setTimeout(() => {
-    // 懒加载
+  // 懒加载
   import('./dynamic-data.js').then((res) => {
     console.log('res', res.default);
   });
 }, 1000);
 ```
-### module chunk bundle的区别
+
+### module chunk bundle 的区别
+
 ```js
 module 各个源码文件 webpack中一切皆模块
 chunk 多个模块合并成的, 如entry import() splitChunk
 bundle 最终的输出文件
 ```
 
+### IgnorePlugin 避免引入无用模块
+
+```js
+new webpack.IgnorePlugin({
+  resourceRegExp: /^\.\/locale$/,
+  contextRegExp: /moment$/,
+}),
+```
+### noParse 避免重复打包
+```js
+noParse:[/react\.min\.js/],
+```
 
