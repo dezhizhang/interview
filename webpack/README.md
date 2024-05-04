@@ -184,8 +184,27 @@ new webpack.IgnorePlugin({
   contextRegExp: /moment$/,
 }),
 ```
+
 ### noParse 避免重复打包
+
 ```js
 noParse:[/react\.min\.js/],
 ```
 
+### Happypack 开启多进程打包
+
+```js
+{
+  test: /\.js$/,
+  use: ['happypack/loader?id=babel'],
+  include: path.resolve(__dirname, 'src'),
+  exclude: /node_modules/,
+},
+
+// 开启多进程打包
+new Happypack({
+  id: 'babel',
+  loaders: ['babel-loader'],
+}),
+
+```
