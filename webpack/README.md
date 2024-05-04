@@ -156,3 +156,12 @@ optimization:{
     },
   },
 ```
+### 懒加载
+```js
+setTimeout(() => {
+    // 懒加载
+  import('./dynamic-data.js').then((res) => {
+    console.log('res', res.default);
+  });
+}, 1000);
+```
