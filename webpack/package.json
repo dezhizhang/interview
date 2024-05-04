@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config webpack.common.js",
-    "build": "webpack --config webpack.common.js"
+    "start": "webpack-dev-server --config webpack.config.js",
+    "build": "webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
     "webpack-dev-server": "^4.9.3"
   },
   "devDependencies": {
+    "lodash": "^4.17.21",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "terser-webpack-plugin": "^5.3.10"
   }

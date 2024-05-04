@@ -79,7 +79,7 @@ output: {
 
 ```
 
-### 抽离和压缩css
+### 抽离和压缩 css
 
 ```js
 {
@@ -99,4 +99,60 @@ optimization:{
   // 压缩css
   minimizer:[new TerserPlugin({}),new OptimizeCssAssetsPlugin()]
 }
+```
+
+### 分割代码块
+
+```js
+ new HtmlWebpackPlugin({
+      template: './public/index.html',
+      inject: 'body',
+      filename: 'index.html',
+      // 分割代码块 加入引用模块
+      chunks: ['index', 'vendor', 'common'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './public/other.html',
+      inject: 'body',
+      filename: 'other.html',
+      // 分割代码块 加入引用模块
+      chunks: ['other', 'vendor', 'common'],
+    }),
+ optimization: {
+    // 压缩css
+    minimizer: [new TerserPlugin({}), new OptimizeCssAssetsPlugin()],
+
+    // 分割代码块
+    splitChunks: {
+      // all 全部
+      chunks: 'all',
+
+      // 缓存分组
+      cacheGroups: {
+        // 第三方模块
+        vendor: {
+          // thunk名称
+          name: 'vendor',
+          // 优先抽离
+          priority: 1,
+          test: /node_modules/,
+          // 大小限制
+          minSize: 0,
+          // 最少复用几次
+          minChunks: 1,
+        },
+
+        // 公共的模块
+        common: {
+          // thunk名称
+          name: 'common',
+          // 优先级
+          priority: 1,
+          minSize: 0,
+          // 最少复用几次
+          minChunks: 2,
+        },
+      },
+    },
+  },
 ```
