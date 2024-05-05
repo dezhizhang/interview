@@ -3,7 +3,6 @@
 # 面试视频https://www.bilibili.com/video/BV1sN411974w/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8
 
 ### Promise
-<!-- 13658584730 -->
 
 1. await 相当于 Promise.then 处理不了 Promise.reject
 2.
@@ -609,6 +608,24 @@ const arr1 = rotate2(arr, 3);
 console.log(arr1);
 
 ```
+###  微任务与宏任务
+```js
+console.log('start');
+
+setTimeout(() => {
+  console.log('timeout');
+});
+
+Promise.resolve().then(() => {
+  console.log('promise then');
+});
+
+console.log('end');
+
+```
+
+
+
 ### 判断括号是否匹配 
 ```js
 function isMatch(left, right) {
