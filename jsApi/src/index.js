@@ -5,22 +5,26 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-05-07 04:53:29
+ * :date last edited: 2024-05-07 05:10:58
  */
 
-function Foo() {
-  Foo.a = function() {console.log(1)}
-  this.a = function() {console.log(2)}
-}
+Promise.resolve().then(() => {
+  console.log(0);
+  return Promise.resolve(4)
+}).then((res) => {
+  // console.log('hello')
+  console.log(res);
+});
 
-Foo.prototype.a = function() {console.log(3)}
 
-Foo.a = function() {console.log(4)}
-
-Foo.a(); // 4
-
-let obj = new Foo();
-
-obj.a(); // 2;
-
-Foo.a(); // 1
+Promise.resolve().then(() => {
+  console.log(1)
+}).then(() => {
+  console.log(2);
+}).then(() => {
+  console.log(3);
+}).then(() => {
+  console.log(5);
+}).then(() => {
+  console.log(6)
+})
