@@ -33,6 +33,11 @@ Promise.resolve().then(() => {
 
 console.log(400);
 ```
+### 进程process和线程thread
+```js
+// 进程, OS进行资源分配和调度的最小单位，有独立内存空间
+// 线程, OS进行运算调度的最小单位，共享进程内存空间
+```
 
 ### 手写 promise TODO 回来重点看
 
@@ -797,6 +802,26 @@ function createLinkList(arr) {
 const n = createLinkList([1,2,3,4]);
 
 console.log(reverseLinkList(n));
+```
+### 同域多tab数据共享
+```js
+let btn = document.getElementById('btn');
+
+btn.addEventListener('click', () => {
+  let obj = {
+    id: Math.random(),
+    name: 'hello',
+  };
+  console.log('hello')
+  localStorage.setItem('info', JSON.stringify(obj));
+});
+
+window.addEventListener('storage', (event) => {
+  console.log('key', event.key);
+  console.log('value', event.newValue);
+});
+
+
 ```
 
 
