@@ -24,6 +24,7 @@
     "html-webpack-plugin": "^5.5.0",
     "install": "^0.13.0",
     "jquery": "^3.7.1",
+    "koa2": "^2.0.0-alpha.7",
     "parcel-bundler": "^1.12.5",
     "stats": "^1.0.0",
     "stats.js": "^0.17.0",
