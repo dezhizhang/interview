@@ -854,6 +854,144 @@ app.use(async ctx => {
 app.listen(3000);
 
 ```
+### parseInt进制转换
+```js 
+// [1,NaN,NaN]
+let arr = ['1','2','3','4','5','6','7','8','9','10','11'];
+
+console.log(arr.map(parseInt))
+```
+
+### 数组转树
+```js
+let arr = [
+  {
+    id: 1,
+    name: '部门A',
+    parentId: 0,
+  },
+  {
+    id: 2,
+    name: '部门B',
+    parentId: 1,
+  },
+  {
+    id: 3,
+    name: '部门C',
+    parentId: 1,
+  },
+  {
+    id: 4,
+    name: '部门D',
+    parentId: 2,
+  },
+  {
+    id: 5,
+    name: '部门E',
+    parentId: 2,
+  },
+  {
+    id: 6,
+    name: '部门F',
+    parentId: 3,
+  },
+];
+
+function convert(arr) {
+  const map = new Map();
+
+  let root = null;
+
+  let length = arr.length;
+  for (let i = 0; i < length; i++) {
+    const { id, name, parentId } = arr[i];
+
+    let treeNode = {
+      id,
+      name,
+    };
+    map.set(id, treeNode);
+
+    let parentNode = map.get(parentId);
+    if (parentNode) {
+      if (parentNode.children == null)parentNode.children = [];
+      parentNode.children.push(treeNode);
+     
+    }
+    if(parentId === 0) root = treeNode;
+
+  }
+
+  return root;
+}
+
+
+
+console.log(convert(arr));
+
+```
+### 树转树组
+```js
+let obj = {
+  id: 1,
+  name: '部门A',
+  children: [
+    {
+      id: 2,
+      name: '部门B',
+      children: [
+        {
+          id: 4,
+          name: '部门D',
+        },
+        {
+          id: 5,
+          name: '部门E',
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: '部门C',
+    },
+  ],
+};
+
+function convert(root) {
+    const map = new Map();
+
+    const arr = [];
+
+    // 广度优先遍历
+    const queue = [];
+    queue.unshift(root);
+
+    while(queue.length > 0) {
+      const curNode = queue.pop();
+      if(!curNode) break;
+
+      const {id,name,children = []} = curNode;
+
+
+      const parentNode = map.get(curNode);
+      const parentId = parentNode && parentNode.id || 0;
+      const item = {id,name,parentId};
+      arr.push(item);
+
+      // 子节点入队
+      children.forEach(child => {
+        map.set(child,curNode);
+        queue.unshift(child);
+      })
+
+    }
+    return arr;
+}
+
+console.log(convert(obj));
+
+```
+
 
 
 
