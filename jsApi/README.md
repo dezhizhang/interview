@@ -1124,6 +1124,19 @@ export function flattenDeep2(arr) {
 console.log(flattenDeep2([1, 2, [3, [4, [5, [6, ['a', 'b']]]]]]));
 
 ```
+### 获取数据类型
+
+```js
+export function getType(x) {
+  const originType = Object.prototype.toString.call(x);
+
+  const spaceIndex = originType.indexOf(' ');
+  return originType.slice(spaceIndex + 1, -1).toLowerCase();
+}
+
+console.log(getType('123'));
+
+```
 
 
 
