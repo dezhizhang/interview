@@ -1074,6 +1074,56 @@ a[c] = 'c';
 console.log(a[b]);
 
 ```
+### 数组偏平化
+```js
+export function flatten(arr) {
+  const result = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      result.push(...item);
+    } else {
+      result.push(item);
+    }
+  });
+  return result;
+}
+
+console.log(flatten([1, 2, [3, 4]]));
+
+```
+### 数组深度扁平化
+```js
+export function flattenDeep1(arr) {
+  const result = [];
+  (arr || []).forEach((item) => {
+    if (Array.isArray(item)) {
+      const flatItem = flattenDeep1(item);
+      result.push(...flatItem);
+    } else {
+      result.push(item);
+    }
+  });
+
+  return result;
+}
+
+export function flattenDeep2(arr) {
+  let result = [];
+  (arr || []).forEach((item) => {
+    if (Array.isArray(item)) {
+      const flatItem = flattenDeep2(item);
+      result = result.concat(flatItem);
+    } else {
+      result = result.concat(item);
+    }
+  });
+
+  return result;
+}
+
+console.log(flattenDeep2([1, 2, [3, [4, [5, [6, ['a', 'b']]]]]]));
+
+```
 
 
 
