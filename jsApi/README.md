@@ -1036,6 +1036,45 @@ Promise.resolve().then(() => {
 })
 ```
 
+### 连续赋值
+```js
+// undefined {n:2}
+let a = {
+  n:1
+}
+
+let b = a;
+
+a.x = a = {n:2}
+
+console.log(a.x);
+console.log(b.x);
+```
+### 对像key只能是字符串和Symbol 其它类型都会调用toString()
+```js
+
+let  a = {},b = '123',c = 123;
+a[b] = 'b';
+a[c] = 'c';
+
+console.log(a[b]); //c
+
+
+let a = {}, b = Symbol('123'),c = Symbol('123');
+a[b] = 'b';
+a[c] = 'c';
+
+console.log(a[b]); // b
+
+
+let a = {}, b = {key:'123'},c = {key:'123'}
+a[b] = 'b';
+a[c] = 'c';
+
+console.log(a[b]);
+
+```
+
 
 
 
