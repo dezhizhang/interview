@@ -1293,3 +1293,28 @@ function fn(a, b, c) {
 const fn1 = fn.mybind({ x: 100 }, 10);
 fn1(20, 30);
 ```
+### 自定义call
+```js
+Function.prototype.myCall = function(context,...args) {
+  if(context == null) context = globalThis;
+
+  if(typeof context !== 'object') context = new Object(context);
+
+  const fnKey = Symbol();
+  context[fnKey] = this;
+
+  const result = context[fnKey](...args);
+  delete context[fnKey];
+
+  return result;
+}
+
+
+function fn(a,b,c) {
+  console.log(a,b,c);
+}
+
+fn.myCall({x:123},1,2,3);
+
+```
+
