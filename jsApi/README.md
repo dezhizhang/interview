@@ -33,7 +33,9 @@ Promise.resolve().then(() => {
 
 console.log(400);
 ```
-### 进程process和线程thread
+
+### 进程 process 和线程 thread
+
 ```js
 // 进程, OS进行资源分配和调度的最小单位，有独立内存空间
 // 线程, OS进行运算调度的最小单位，共享进程内存空间
@@ -294,7 +296,9 @@ div1.addEventListener('click', (event) => {
   console.log(event.target);
 });
 ```
+
 ### 代理函数
+
 ```ts
 function bindEvent(elem, type, selector, fn) {
   if (fn == null) {
@@ -314,51 +318,53 @@ function bindEvent(elem, type, selector, fn) {
     fn.call(target, event);
   });
 }
-
 ```
+
 ### ajax
+
 ```js
 const xhr = new XMLHttpRequest();
-xhr.open('GET','https://cnodejs.org/api/v1/topics',false);
-xhr.onreadystatechange = function() {
-  if(xhr.readyState === 4 && xhr.status === 200) {
-    console.log(JSON.parse(xhr.responseText))
+xhr.open('GET', 'https://cnodejs.org/api/v1/topics', false);
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(JSON.parse(xhr.responseText));
   }
-}
+};
 
 xhr.send(null);
-
 ```
-### Promise版ajax
+
+### Promise 版 ajax
+
 ```js
 function ajax(url) {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET',url,true);
+    xhr.open('GET', url, true);
     xhr.onreadystatechange = () => {
-      if(xhr.readyState === 4 && xhr.status === 200) {
-        resolve(JSON.parse(xhr.responseText))
-      }else if(xhr.status === 400) {
-        reject(new Error('请求出错'))
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        resolve(JSON.parse(xhr.responseText));
+      } else if (xhr.status === 400) {
+        reject(new Error('请求出错'));
       }
-      
-    }
-    xhr.send(null)
-  })
+    };
+    xhr.send(null);
+  });
 }
-
 ```
-### http和https
 
-1. http是明文传输，敏感信息容易被中间劫持
+### http 和 https
+
+1. http 是明文传输，敏感信息容易被中间劫持
 2. https = http + 加密 劫持了也无法解密
 
-### 加密方式 
-1. 对称加密： 一个key同负责加密，解密
-2. 非对称加密： 一对key,A 加密之后只能用B来解密
-https 同时用到对称加密和非对称加密
+### 加密方式
+
+1. 对称加密： 一个 key 同负责加密，解密
+2. 非对称加密： 一对 key,A 加密之后只能用 B 来解密 https 同时用到对称加密和非对称加密
 
 ### 防抖函数
+
 ```js
 const oInput = document.getElementById('input');
 
@@ -375,33 +381,42 @@ function debounce(fn, delay = 500) {
   };
 }
 
-oInput.addEventListener('keyup',debounce(() => {
-  console.log(oInput.value);
-}));
+oInput.addEventListener(
+  'keyup',
+  debounce(() => {
+    console.log(oInput.value);
+  }),
+);
 ```
+
 ### 节流函数
 
 ```js
 const div1 = document.getElementById('div1');
 
-function throttle(fn,delay = 200) {
+function throttle(fn, delay = 200) {
   let timer = null;
-  return function() {
-    if(timer) {
-      return
+  return function () {
+    if (timer) {
+      return;
     }
     timer = setTimeout(() => {
-      fn.apply(this,arguments);
-      timer = null
-    },delay)
-  }
+      fn.apply(this, arguments);
+      timer = null;
+    }, delay);
+  };
 }
 
-div1.addEventListener('drag',throttle((event) => {
-  console.log(event.offsetX);
-}))
+div1.addEventListener(
+  'drag',
+  throttle((event) => {
+    console.log(event.offsetX);
+  }),
+);
 ```
+
 ### 判断两个对像是否相等
+
 ```js
 function isObject(obj) {
   return typeof obj === 'object' && obj !== null;
@@ -447,130 +462,147 @@ const obj2 = {
     y: 200,
   },
 };
-
 ```
-### splice的用法
-```js
-const arr = [10,20,30,40,50];
-const result = arr.splice(1,2,'a','b','c');
 
-console.log('arr',arr);
-console.log('result',result);
-```
-### map操作
+### splice 的用法
+
 ```js
-const arr = [10,20,30].map((num,index) => {
-  return parseInt(num,index)
+const arr = [10, 20, 30, 40, 50];
+const result = arr.splice(1, 2, 'a', 'b', 'c');
+
+console.log('arr', arr);
+console.log('result', result);
+```
+
+### map 操作
+
+```js
+const arr = [10, 20, 30].map((num, index) => {
+  return parseInt(num, index);
 });
 
 console.log(arr);
-
 ```
+
 ### 函数场明函数提升
+
 ```js
 const result = sum(10, 20);
 
 function sum(x, y) {
   return x + y;
 }
-
 ```
+
 ### 函数表过式不会变量提升
-```js
-const result = sum(10,20);
-console.log('result',result);
 
-const sum = function(x,y) {
+```js
+const result = sum(10, 20);
+console.log('result', result);
+
+const sum = function (x, y) {
   return x + y;
-}
+};
 ```
-### this的场影题
+
+### this 的场影题
+
 ```js
 const User = {
-  count:1,
-  getCount:function() {
+  count: 1,
+  getCount: function () {
     return this.count;
-  }
-}
+  },
+};
 
 console.log(User.getCount());
 const func = User.getCount;
 
 console.log(func());
+```
 
-```
-### trim方法
+### trim 方法
+
 ```js
-String.prototype.trim = function() {
-  return this.replace(/^\s+/,'').replace('/\s+$','')
-}
+String.prototype.trim = function () {
+  return this.replace(/^\s+/, '').replace('/s+$', '');
+};
 ```
+
 ### 数组拍平
+
 ```js
 function flatten(arr) {
-  const isDeep = arr.some(item => item instanceof Array);
-  if(!isDeep) {
+  const isDeep = arr.some((item) => item instanceof Array);
+  if (!isDeep) {
     return arr;
   }
 
-  const result = Array.prototype.concat.apply([],arr);
+  const result = Array.prototype.concat.apply([], arr);
   return flatten(result);
-
 }
 
-const result = flatten([[1,2],[3,4]]);
+const result = flatten([
+  [1, 2],
+  [3, 4],
+]);
 ```
-### map类型有序类型
+
+### map 类型有序类型
+
 ```js
 const m = new Map([
-  ['k1','hello'],
-  ['k2',100],
-
+  ['k1', 'hello'],
+  ['k2', 100],
 ]);
 
-m.set('name','hello');
+m.set('name', 'hello');
 
-m.forEach((key,value) => console.log({key,value}))
+m.forEach((key, value) => console.log({ key, value }));
 ```
 
-### set无序速度快
+### set 无序速度快
+
 ```js
-const set = new Set([10,20,30,40]);
+const set = new Set([10, 20, 30, 40]);
 set.forEach((val) => console.log(val));
 ```
+
 ### WeakMap
+
 ```js
 const vMap = new WeakMap();
 
 const userInfo = {
-  name:'hello',
-}
+  name: 'hello',
+};
 
 const cityInfo = {
-  name:'world'
-}
+  name: 'world',
+};
 
-vMap.set(userInfo,cityInfo);
+vMap.set(userInfo, cityInfo);
 
 console.log(vMap.get(userInfo));
-
 ```
-### reduce求和函数
+
+### reduce 求和函数
+
 ```js
-const arr = [10,20,30,40,50];
+const arr = [10, 20, 30, 40, 50];
 
-const sum = arr.reduce((sum,curVal,index,arr) => {
-  console.log({sum,curVal,index,arr})
+const sum = arr.reduce((sum, curVal, index, arr) => {
+  console.log({ sum, curVal, index, arr });
   return sum + curVal;
-},0);
+}, 0);
 
-console.log('sun',sum);
-
+console.log('sun', sum);
 ```
 
 ## 算法与数据结构
 
-### 旋转数组key步pop和unshift
+### 旋转数组 key 步 pop 和 unshift
+
 ```js
 function rotate1(arr, k) {
   const length = arr.length;
@@ -587,13 +619,13 @@ function rotate1(arr, k) {
   return arr;
 }
 
-const arr = [1,2,3,4,5,6,7];
-const arr1 = rotate1(arr,3);
-console.log(arr1)
-
+const arr = [1, 2, 3, 4, 5, 6, 7];
+const arr1 = rotate1(arr, 3);
+console.log(arr1);
 ```
 
-### 旋转数组key步slice和concat
+### 旋转数组 key 步 slice 和 concat
+
 ```js
 function rotate2(arr, k) {
   const length = arr.length;
@@ -611,9 +643,10 @@ const arr = [1, 2, 3, 4, 5, 6, 7];
 
 const arr1 = rotate2(arr, 3);
 console.log(arr1);
-
 ```
-###  微任务与宏任务
+
+### 微任务与宏任务
+
 ```js
 console.log('start');
 
@@ -626,16 +659,17 @@ Promise.resolve().then(() => {
 });
 
 console.log('end');
-
 ```
-### for和forEach那个更快
+
+### for 和 forEach 那个更快
+
 ```js
 // for更快
 // forEeach每次都要创建一个函数来调用，而for不会创建函数
 // 函数需要独立的作用域，会有额外的开销
 const arr = [];
 
-for(let i=0;i < 10000 * 10000;i++) {
+for (let i = 0; i < 10000 * 10000; i++) {
   arr.push(i);
 }
 
@@ -644,7 +678,7 @@ const length = arr.length;
 console.time('for');
 let n = 0;
 
-for(let i=0;i < length;i++) {
+for (let i = 0; i < length; i++) {
   n++;
 }
 
@@ -656,12 +690,10 @@ arr.forEach(() => {
   n1++;
 });
 console.timeEnd('forEach'); //8.78
-
 ```
 
+### 判断括号是否匹配
 
-
-### 判断括号是否匹配 
 ```js
 function isMatch(left, right) {
   if (left === '{' && right === '}') return true;
@@ -689,7 +721,7 @@ function matchBracket(str) {
       const top = stack[stack.length - 1];
       if (isMatch(top, s)) {
         stack.pop();
-      }else {
+      } else {
         return false;
       }
     }
@@ -700,18 +732,16 @@ function matchBracket(str) {
 
 const str = '([{}])';
 
-
 console.log(matchBracket(str));
 ```
 
 ### 栈模拟队列
+
 ```js
-class Queue{
+class Queue {
   stack1 = [];
   stack2 = [];
-  constructor() {
-
-  }
+  constructor() {}
 
   add(n) {
     this.stack1.push(n);
@@ -722,33 +752,33 @@ class Queue{
     const stack1 = this.stack1;
     const stack2 = this.stack2;
 
-    while(stack1.length) {
+    while (stack1.length) {
       const n = stack1.pop();
-      if(n!= null) {
+      if (n != null) {
         stack2.push(n);
       }
     }
 
     // 执行stack pop
     result = stack2.pop();
-    while(stack2.length) {
+    while (stack2.length) {
       const n = stack2.pop();
-      if(n != null) {
+      if (n != null) {
         stack1.push(n);
       }
     }
 
     return result || null;
-
   }
 
   get length() {
     return this.stack1.length;
   }
 }
-
 ```
+
 ### 链表反转
+
 ```js
 // 链表反转
 function reverseLinkList(listNode) {
@@ -756,13 +786,12 @@ function reverseLinkList(listNode) {
   let curNode;
   let nextNode = listNode;
 
-
-  while(nextNode) {
-    if(curNode && !prevNode) {
+  while (nextNode) {
+    if (curNode && !prevNode) {
       delete curNode.next;
     }
 
-    if(curNode && prevNode) {
+    if (curNode && prevNode) {
       curNode.next = prevNode;
     }
 
@@ -771,39 +800,39 @@ function reverseLinkList(listNode) {
     nextNode = nextNode.next;
   }
 
-
   curNode.next = prevNode;
 
-  return curNode; 
+  return curNode;
 }
 
 function createLinkList(arr) {
   const length = arr.length;
 
-  if(length === 0) throw new Error('数组为空');
+  if (length === 0) throw new Error('数组为空');
 
   let curNode = {
-    value:arr[length - 1]
-  }
+    value: arr[length - 1],
+  };
 
-  if(length === 1) return curNode;
+  if (length === 1) return curNode;
 
-  for(let i = length - 2;i >=0;i--) {
+  for (let i = length - 2; i >= 0; i--) {
     curNode = {
-      value:arr[i],
-      next:curNode
-    }
+      value: arr[i],
+      next: curNode,
+    };
   }
 
   return curNode;
-
 }
 
-const n = createLinkList([1,2,3,4]);
+const n = createLinkList([1, 2, 3, 4]);
 
 console.log(reverseLinkList(n));
 ```
-### 同域多tab数据共享
+
+### 同域多 tab 数据共享
+
 ```js
 let btn = document.getElementById('btn');
 
@@ -812,7 +841,7 @@ btn.addEventListener('click', () => {
     id: Math.random(),
     name: 'hello',
   };
-  console.log('hello')
+  console.log('hello');
   localStorage.setItem('info', JSON.stringify(obj));
 });
 
@@ -820,49 +849,48 @@ window.addEventListener('storage', (event) => {
   console.log('key', event.key);
   console.log('value', event.newValue);
 });
-
-
 ```
 
-### kao2洋葱圈模型
+### kao2 洋葱圈模型
+
 ```js
 const Koa = require('koa2');
 
 const app = new Koa();
 
-app.use(async(ctx,next) => {
-    await next();
+app.use(async (ctx, next) => {
+  await next();
 
-    const rt = ctx.response.get('X-Response-Time');
-    console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+  const rt = ctx.response.get('X-Response-Time');
+  console.log(`${ctx.method} ${ctx.url} - ${rt}`);
 });
 
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
 
-app.use(async(ctx,next) => {
-    const start = Date.now();
-    await next();
-
-    const ms = Date.now() - start;
-    ctx.set('X-Response-Time',`${ms}ms`)
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
 });
 
-
-app.use(async ctx => {
-    ctx.body = 'hello world'
+app.use(async (ctx) => {
+  ctx.body = 'hello world';
 });
 
 app.listen(3000);
-
 ```
-### parseInt进制转换
-```js 
-// [1,NaN,NaN]
-let arr = ['1','2','3','4','5','6','7','8','9','10','11'];
 
-console.log(arr.map(parseInt))
+### parseInt 进制转换
+
+```js
+// [1,NaN,NaN]
+let arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+
+console.log(arr.map(parseInt));
 ```
 
 ### 数组转树
+
 ```js
 let arr = [
   {
@@ -914,23 +942,20 @@ function convert(arr) {
 
     let parentNode = map.get(parentId);
     if (parentNode) {
-      if (parentNode.children == null)parentNode.children = [];
+      if (parentNode.children == null) parentNode.children = [];
       parentNode.children.push(treeNode);
-     
     }
-    if(parentId === 0) root = treeNode;
-
+    if (parentId === 0) root = treeNode;
   }
 
   return root;
 }
 
-
-
 console.log(convert(arr));
-
 ```
+
 ### 树转树组
+
 ```js
 let obj = {
   id: 1,
@@ -958,49 +983,56 @@ let obj = {
 };
 
 function convert(root) {
-    const map = new Map();
+  const map = new Map();
 
-    const arr = [];
+  const arr = [];
 
-    // 广度优先遍历
-    const queue = [];
-    queue.unshift(root);
+  // 广度优先遍历
+  const queue = [];
+  queue.unshift(root);
 
-    while(queue.length > 0) {
-      const curNode = queue.pop();
-      if(!curNode) break;
+  while (queue.length > 0) {
+    const curNode = queue.pop();
+    if (!curNode) break;
 
-      const {id,name,children = []} = curNode;
+    const { id, name, children = [] } = curNode;
 
+    const parentNode = map.get(curNode);
+    const parentId = (parentNode && parentNode.id) || 0;
+    const item = { id, name, parentId };
+    arr.push(item);
 
-      const parentNode = map.get(curNode);
-      const parentId = parentNode && parentNode.id || 0;
-      const item = {id,name,parentId};
-      arr.push(item);
-
-      // 子节点入队
-      children.forEach(child => {
-        map.set(child,curNode);
-        queue.unshift(child);
-      })
-
-    }
-    return arr;
+    // 子节点入队
+    children.forEach((child) => {
+      map.set(child, curNode);
+      queue.unshift(child);
+    });
+  }
+  return arr;
 }
 
 console.log(convert(obj));
-
 ```
+
 ### 原型
+
 ```js
 function Foo() {
-  Foo.a = function() {console.log(1)}
-  this.a = function() {console.log(2)}
+  Foo.a = function () {
+    console.log(1);
+  };
+  this.a = function () {
+    console.log(2);
+  };
 }
 
-Foo.prototype.a = function() {console.log(3)}
+Foo.prototype.a = function () {
+  console.log(3);
+};
 
-Foo.a = function() {console.log(4)}
+Foo.a = function () {
+  console.log(4);
+};
 
 Foo.a(); // 4
 
@@ -1009,72 +1041,85 @@ let obj = new Foo();
 obj.a(); // 2;
 
 Foo.a(); // 1
-
 ```
-### then交替执行
+
+### then 交替执行
+
 ```js
+Promise.resolve()
+  .then(() => {
+    console.log(0);
+    // then中返回promise实例 ‘慢两拍’
+    return Promise.resolve(4);
+  })
+  .then((res) => {
+    console.log(res);
+  });
 
-Promise.resolve().then(() => {
-  console.log(0);
-  // then中返回promise实例 ‘慢两拍’
-  return Promise.resolve(4)
-}).then((res) => {
-  console.log(res);
-});
-
-
-Promise.resolve().then(() => {
-  console.log(1)
-}).then(() => {
-  console.log(2);
-}).then(() => {
-  console.log(3);
-}).then(() => {
-  console.log(5);
-}).then(() => {
-  console.log(6)
-})
+Promise.resolve()
+  .then(() => {
+    console.log(1);
+  })
+  .then(() => {
+    console.log(2);
+  })
+  .then(() => {
+    console.log(3);
+  })
+  .then(() => {
+    console.log(5);
+  })
+  .then(() => {
+    console.log(6);
+  });
 ```
 
 ### 连续赋值
+
 ```js
 // undefined {n:2}
 let a = {
-  n:1
-}
+  n: 1,
+};
 
 let b = a;
 
-a.x = a = {n:2}
+a.x = a = { n: 2 };
 
 console.log(a.x);
 console.log(b.x);
 ```
-### 对像key只能是字符串和Symbol 其它类型都会调用toString()
-```js
 
-let  a = {},b = '123',c = 123;
+### 对像 key 只能是字符串和 Symbol 其它类型都会调用 toString()
+
+```js
+let a = {},
+  b = '123',
+  c = 123;
 a[b] = 'b';
 a[c] = 'c';
 
 console.log(a[b]); //c
 
-
-let a = {}, b = Symbol('123'),c = Symbol('123');
+let a = {},
+  b = Symbol('123'),
+  c = Symbol('123');
 a[b] = 'b';
 a[c] = 'c';
 
 console.log(a[b]); // b
 
-
-let a = {}, b = {key:'123'},c = {key:'123'}
+let a = {},
+  b = { key: '123' },
+  c = { key: '123' };
 a[b] = 'b';
 a[c] = 'c';
 
 console.log(a[b]);
-
 ```
+
 ### 数组偏平化
+
 ```js
 export function flatten(arr) {
   const result = [];
@@ -1089,9 +1134,10 @@ export function flatten(arr) {
 }
 
 console.log(flatten([1, 2, [3, 4]]));
-
 ```
+
 ### 数组深度扁平化
+
 ```js
 export function flattenDeep1(arr) {
   const result = [];
@@ -1122,8 +1168,8 @@ export function flattenDeep2(arr) {
 }
 
 console.log(flattenDeep2([1, 2, [3, [4, [5, [6, ['a', 'b']]]]]]));
-
 ```
+
 ### 获取数据类型
 
 ```js
@@ -1135,9 +1181,10 @@ export function getType(x) {
 }
 
 console.log(getType('123'));
-
 ```
+
 ### 函数柯里化
+
 ```js
 export function curry(fn) {
   const fnArgsLength = fn.length;
@@ -1161,76 +1208,88 @@ const curryAdd = curry(add);
 console.log(curryAdd(10)(20)(30));
 ```
 
-### LazyMan任务队列
+### LazyMan 任务队列
+
 ```js
 class LazyMan {
-    tasks = [];
-    constructor(name) {
-      this.name = name;
-      setTimeout(() => {
-          this.next();
-      })
-    }
-    next() {
-      const task = this.tasks.shift();
-      if (task) task();
-    }
-    eat(food) {
-      const task = () => {
-        console.log(`${this.name} eat ${food}`);
-        this.next();
-      };
-      this.tasks.push(task);
-      return this;
-    }
-  
-    sleep(seconds) {
-      const task = () => {
-        setTimeout(() => {
-          console.log(`${this.name} 已经睡完了 ${seconds}s`);
-          this.next();
-        }, seconds * 1000);
-      };
-      this.tasks.push(task);
-      return this;
-    }
+  tasks = [];
+  constructor(name) {
+    this.name = name;
+    setTimeout(() => {
+      this.next();
+    });
   }
-  
-  
-  const m = new LazyMan('tom')
-  m.eat('苹果').eat('香蕉').sleep(2).eat('葡萄').sleep(1).eat('西瓜');
-  
+  next() {
+    const task = this.tasks.shift();
+    if (task) task();
+  }
+  eat(food) {
+    const task = () => {
+      console.log(`${this.name} eat ${food}`);
+      this.next();
+    };
+    this.tasks.push(task);
+    return this;
+  }
+
+  sleep(seconds) {
+    const task = () => {
+      setTimeout(() => {
+        console.log(`${this.name} 已经睡完了 ${seconds}s`);
+        this.next();
+      }, seconds * 1000);
+    };
+    this.tasks.push(task);
+    return this;
+  }
+}
+
+const m = new LazyMan('tom');
+m.eat('苹果').eat('香蕉').sleep(2).eat('葡萄').sleep(1).eat('西瓜');
 ```
-### 自定义InstanceOf
+
+### 自定义 InstanceOf
+
 ```js
-export function MyInstance(instance,origin) {
-    if(instance == null) return false; // null undefined
-  
-    if(typeof instance !== 'object' && typeof instance !== 'function') {
-      return false;
-    }
-  
-    let tempInstance = instance;
-    while(tempInstance) {
-      if(tempInstance.__proto__ === origin.prototype) {
-        return true;
-      }
-      tempInstance = tempInstance.__proto__;
-    }
+export function MyInstance(instance, origin) {
+  if (instance == null) return false; // null undefined
+
+  if (typeof instance !== 'object' && typeof instance !== 'function') {
     return false;
   }
-  
-  console.log(MyInstance({},Object));
-  console.log(MyInstance([],Object));
-  console.log(MyInstance([],Array));
-  console.log(MyInstance('123',Number));
-  ```
 
+  let tempInstance = instance;
+  while (tempInstance) {
+    if (tempInstance.__proto__ === origin.prototype) {
+      return true;
+    }
+    tempInstance = tempInstance.__proto__;
+  }
+  return false;
+}
 
+console.log(MyInstance({}, Object));
+console.log(MyInstance([], Object));
+console.log(MyInstance([], Array));
+console.log(MyInstance('123', Number));
+```
 
+### 自定义bind
 
+```js
+Function.prototype.mybind = function (context, ...bindArgs) {
+  const self = this;
 
+  return function (...args) {
+    const newAargs = bindArgs.concat(args);
+    return self.apply(context, newAargs);
+  };
+};
 
+function fn(a, b, c) {
+  console.log({ a, b, c });
+}
 
-
-
+const fn1 = fn.mybind({ x: 100 }, 10);
+fn1(20, 30);
+```
