@@ -1201,6 +1201,30 @@ class LazyMan {
   m.eat('苹果').eat('香蕉').sleep(2).eat('葡萄').sleep(1).eat('西瓜');
   
 ```
+### 自定义InstanceOf
+```js
+export function MyInstance(instance,origin) {
+    if(instance == null) return false; // null undefined
+  
+    if(typeof instance !== 'object' && typeof instance !== 'function') {
+      return false;
+    }
+  
+    let tempInstance = instance;
+    while(tempInstance) {
+      if(tempInstance.__proto__ === origin.prototype) {
+        return true;
+      }
+      tempInstance = tempInstance.__proto__;
+    }
+    return false;
+  }
+  
+  console.log(MyInstance({},Object));
+  console.log(MyInstance([],Object));
+  console.log(MyInstance([],Array));
+  console.log(MyInstance('123',Number));
+  ```
 
 
 
