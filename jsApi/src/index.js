@@ -5,53 +5,65 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:51:29
  * :last editor: 张德志
- * :date last edited: 2024-05-09 23:30:32
+ * :date last edited: 2024-05-10 06:17:45
  */
+class MyStatis {
+  constructor(productId) {
+    this.productId = productId;
 
-
-class LRUCache{
-  constructor(length) {
-    if(length < 1) throw new Error('无效的length');
-
-    this.length = length;
-    this.data = new Map();
+    //
+    this.performance();
   }
-  set(key,value) {
-    const data = this.data;
-    if(data.has(key)) {
-      data.delete(key);
-    }
-    data.set(key,value);
 
-    if(data.size > this.length) {
-      const delKey = data.keys().next().value;
-      data.delete(delKey);
+  // 发送统计数据
+  send(url, params = {}) {
+    params.productId = this.productId;
+
+    const paramsArr = [];
+    for (let key in params) {
+      const value = params[key];
+
+      paramsArr.push(`${key}=${value}`);
+
+      const newUrl = `${url}?${paramsArr.join('&')}`;
+
+      // 用<img> 发送1. 可跨域;2.兼容性非常好
+      const img = document.createElement('img');
+      img.src = newUrl;
     }
   }
-  get(key) {
-    const data = this.data;
-    if(!data.has(key)) return null;
 
-    const value = data.get(key);
+  // 初始化性能统计
+  initPerformance() {
+    const url = 'xxxx';
+    this.send(url, performance.timing);
+  }
 
-    data.delete(key);
-    data.set(key,value);
+  // 初始化错误监控
+  initError() {
+    // js错误
+    window.addEventListener('error', (event) => {
+      const { error, lineno, colno } = event;
+      this.error(error, { lineno, colno });
+    });
 
-    return value;
+    window.addEventListener('unhandledrejection', (event) => {
+      this.error(new Error(event.reason), { type: 'unhandledrejection' });
+    });
+  }
+
+  pv() {
+    this.event('pv');
+  }
+
+  event(key, value) {
+    const url = 'xxx';
+    this.send(url, { key, value });
+  }
+
+  error(err, info) {
+    const url = 'xxx';
+    const { message, stack } = err;
+    this.send(url, { message, stack, ...info });
   }
 }
-
-const lruCache = new LRUCache(2);
-lruCache.set(1,1);
-lruCache.set(2,2);
-
-console.log(lruCache.get(1));
-lruCache.set(3,3);
-
-console.log(lruCache.get(2));
-
-lruCache.set(4,4);
-console.log(lruCache.get(1));
-console.log(lruCache.get(3));
-console.log(lruCache.get(4));
-
