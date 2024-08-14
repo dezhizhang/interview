@@ -18,7 +18,7 @@ module.exports = {
     filename: 'build.[contenthash].js',
   },
   devServer: {
-    port: 8000,
+    port: 8001,
     open: false,
   },
   module: {
