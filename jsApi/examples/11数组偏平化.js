@@ -7,18 +7,27 @@
  * :last editor: 张德志
  * :date last edited: 2024-05-08 05:40:45
  */
-export function flatten(arr) {
-    const result = [];
-    arr.forEach((item) => {
-      if(Array.isArray(item)) {
-        result.push(...item);
-      }else {
-        result.push(item)
-      }
-    });
-    return result;
-  }
-  
-  
-  console.log(flatten([1,2,[3,[5],4]]));
-  
+function flatten(arr) {
+  const result = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      item.forEach((n) => result.push(n));
+    } else {
+      result.push(item);
+    }
+  });
+
+  return result;
+}
+
+function flatten(arr) {
+  let result = [];
+  arr.forEach((item) => {
+    result = result.concat(item);
+  });
+  return result;
+}
+
+const arr = [1, 2, [3, 4, [5, 6], 7]];
+console.log(flatten(arr));
+
