@@ -1,3 +1,4 @@
+
 function getDataType(x) {
   const originType = Object.prototype.toString.call(x);
   const spaceIndex = originType.indexOf(" ");
@@ -5,4 +6,4 @@ function getDataType(x) {
   return type.toLowerCase();
 }
 
-console.log(getDataType(false));
+console.log(getDataType("hello"));
