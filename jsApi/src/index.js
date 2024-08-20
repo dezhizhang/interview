@@ -1,64 +1,49 @@
-// 自定义事件总线
-
-class EventBus {
-  constructor() {
-    this.events = {};
+class LRUCache {
+  constructor(length) {
+    if (length < 1) throw new Error("invalid length");
+    this.length = length;
+    this.data = new Map();
   }
-  on(type, fn, isOnce = false) {
-    let events = this.events;
-    if (!events[type]) {
-      events[type] = [];
+  set(key,value) {
+    const data = this.data;
+
+    // 如果存在key则删除
+    if(data.has(key)) {
+      data.delete(key);
     }
-    events[type].push({ fn, isOnce });
-  }
-  // 绑定一次
-  once(type, fn) {
-    this.on(type, fn, true);
-  }
-  // 解邦
-  off(type, fn) {
-    // 解绑所有type函数
-    if (!fn) this.events[type] = [];
 
-    const fnList = this.events[type];
-    if (fnList) {
-      this.events[type] = fnList.filter((item) => item.fn !== fn);
+    // 重新设置key
+    data.set(key,value);
+
+    if(data.size > this.length) {
+      // 如果超出了容量，则删除map最老元素
+      const delKey = data.keys().next().value;
+      data.delete(delKey);
     }
   }
-  // 触发
-  emit(type, ...args) {
-    const fnList = this.events[type];
-    if (!fnList.length) return;
 
-    //
-    this.events[type] = fnList.filter((item) => {
-      const { fn, isOnce } = item;
-      fn(...args);
-      if (!isOnce) return true;
-      return false;
-    });
+  get(key) {
+    const data = this.data;
+    // 如果不存在则返回null
+    if(!data.has(key)) return null;
+
+    const value = data.get(key);
+
+    data.delete(key);
+    // 重新设置
+    data.set(key,value);
+    return value;
   }
 }
 
+const lruCache = new LRUCache(2);
+lruCache.set(1,1);
+lruCache.set(2,2);
+console.log(lruCache.get(1));
 
-const evnet = new EventBus();
-
-function fn1(a,b) {
-  console.log('fn1',a,b);
-}
-
-
-function fn2(a,b) {
-  console.log('fn2',a,b);
-}
+lruCache.set(3,3);
+console.log(lruCache.get(2));
 
 
 
-evnet.on('key1',fn1);
-evnet.on('key1',fn1);
-evnet.once('key2',fn2);
-evnet.once('key2',fn2);
 
-
-evnet.emit('key1',10,20)
-evnet.emit('key2',10,20)
