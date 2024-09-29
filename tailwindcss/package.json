@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "tailwind.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch":"npx tailwindcss -i tailwindcss.css -o ./src/output.css --watch"
   },
   "keywords": [],
   "author": "",
