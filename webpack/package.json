@@ -1,5 +1,5 @@
 {
-  "name": "webpack",
+  "name": "cwebpack",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
@@ -24,9 +24,9 @@
     "webpack-cli": "^4.10.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.9",
+    "@babel/core": "^7.25.2",
     "@babel/plugin-transform-runtime": "^7.24.7",
-    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-env": "^7.25.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^7.1.5",
     "css-loader": "^7.1.2",
@@ -34,6 +34,7 @@
     "imagemin": "^9.0.0",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
+    "loader-utils": "^3.3.1",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.9.0",
     "mini-extract-plugin": "^1.4.3",
