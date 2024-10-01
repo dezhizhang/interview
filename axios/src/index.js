@@ -5,59 +5,36 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-09-27 05:17:04
  * :last editor: 张德志
- * :date last edited: 2024-09-27 09:35:47
+ * :date last edited: 2024-09-27 21:36:03
  */
+// import axios  from "axios";
 
-function axios(url, options) {
-  const { method, data } = options || {};
-  return new Promise((resolve, reject) => {
-    // 创建xhr对像
-    const xhr = new XMLHttpRequest();
+// let cancel;
 
-    // 打开链接
-    xhr.open(method, url, true);
+// axios
+//   .get("https://cnodejs.org/api/v1/topics", {
+//     cancelToken: new axios.CancelToken((c)=> {
+//       cancel = c;
+//     }),
+//   })
+//   .then((rsp) => {
+//     console.log(rsp.data);
+//   });
 
-    // 发送请求
-    if (method === "POST") {
-      xhr.setRequestHeader("Content-type", "application/json;charset=utf-8");
-      xhr.send(JSON.stringify(data));
-    } else if (method === "GET") {
-      xhr.send();
-    }
+// cancel();
 
-    // 状态改变的监听
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) {
-        return;
-      }
+// import axios from "axios";
 
-      const { status, statusText } = xhr;
-      if (status >= 200 && status <= 299) {
-        const response = {
-          data: JSON.parse(xhr.response),
-          status,
-          statusText,
-        };
-        resolve(response);
-      }else {
-        reject(new Error('request error status is' + status))
-      }
-    };
-  });
-}
+// let cancel;
 
-const baseUrl = "https://cnodejs.org/api/v1";
+// axios
+//   .get(`https://cnodejs.org/api/v1/topics`, {
+//     cancelToken: new axios.CancelToken((c) => {
+//       cancel = c;
+//     }),
+//   })
+//   .then((rsp) => {
+//     console.log("rsp", rsp.data);
+//   });
 
-async function test() {
-  const rsp = await axios(`${baseUrl}/topics`, {
-    method: "GET",
-  });
-  console.log("rsp", rsp);
-}
-
-
-
-const btn = document.getElementById("btn");
-btn.addEventListener("click", () => {
-    test();
-});
+// cancel();
