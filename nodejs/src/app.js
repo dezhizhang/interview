@@ -1,41 +1,25 @@
-// const EventEmitter = require('events');
-// const emitter = new EventEmitter();
+/*
+ * :file description: 
+ * :name: /nodejs/src/app.js
+ * :author:张德志
+ * :copyright: (c) 2024, Xiaozhi
+ * :date created: 2024-10-06 05:24:39
+ * :last editor: 张德志
+ * :date last edited: 2024-10-20 19:27:44
+ */
 
-// emitter.on('greet', () => {
-//   console.log('Hello, World!');
-// });
+const sharp = require('sharp');
 
-// emitter.emit('greet');  // 输出: Hello, World!
+const compressImage = async (inputPath,outputPath,quality = 80) => {
+  try{
+    await sharp(inputPath)
+    .jpeg({quality})
+    .toFile(outputPath)
+    console.log("图片压缩完成",outputPath)
+  }catch(err) {
+    console.error('压缩出错:',err);
+  }
+}
 
-// const EventEmitter = require('events');
-// const emitter = new EventEmitter();
 
-// emitter.on('greet',() => {
-//     console.log('Hello world');
-// });
-
-// emitter.emit('greet');
-
-// const http = require('http');
-
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'text/plain');
-//   res.end('Hello World\n');
-// });
-
-// server.listen(3000, () => {
-//   console.log('Server running at http://127.0.0.1:3000/');
-// });
-
-const http = require("http");
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
-});
-
-server.listen(300, () => {
-  console.log("Server running at http://127.0.0.1:3000/");
-});
+compressImage('input.jpg', 'output.jpg');
