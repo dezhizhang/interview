@@ -5,10 +5,15 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-23 16:04:06
  * :last editor: 张德志
- * :date last edited: 2024-10-23 17:18:13
+ * :date last edited: 2024-10-23 17:43:20
  */
 
-import { peek, pop } from "./SchedulerMinHeap";
+import {
+  maxSigned31BitInt,
+  normalPriorityTimeout,
+  UserBlockingPriorityTimeout,
+} from "./SchedulerFeatureFlags";
+import { peek, pop, push } from "./SchedulerMinHeap";
 import {
   PrioritiesLevel,
   NormalPriority,
@@ -36,6 +41,14 @@ let startTime = -1;
 
 // 时间切片，这是个时间段
 let frameInterval = 5;
+
+let taskIdCounter = 1;
+
+// 是否有work在执行
+let isPerformingWork = false;
+
+// 主线程是否在调度
+let isHostCallbackScheduled = false;
 
 // 时间切片要循环
 function workLoop(initialTime: number): boolean {
@@ -88,10 +101,54 @@ function shouldYieldToHost() {
 const taskQueue: Array<Task> = [];
 
 // 任务调度器
-function scheduleCallback(
-  prioritiesLevel: PrioritiesLevel,
-  callback: Callback
-) {}
+function scheduleCallback(priorityLevel: PrioritiesLevel, callback: Callback) {
+  // 开始时间
+  const startTime = getCurrentTime();
+
+  let timeout: number;
+
+  switch (priorityLevel) {
+    case ImmediatePriority:
+      timeout = -1;
+      break;
+    case UserBlockingPriority:
+      timeout = UserBlockingPriorityTimeout;
+      break;
+    case IdlePriority:
+      timeout = maxSigned31BitInt;
+      break;
+    case NormalPriority:
+      timeout = normalPriorityTimeout;
+      break;
+    default:
+      timeout = normalPriorityTimeout;
+  }
+
+  // 任务过期时间
+  const expirationTime = startTime + timeout;
+
+  const newTask: Task = {
+    id: taskIdCounter++,
+    callback,
+    priorityLevel,
+    startTime,
+    expirationTime,
+    sortIndex: 0,
+  };
+  newTask.sortIndex = expirationTime;
+  push(taskQueue, newTask);
+
+  if (!isHostCallbackScheduled && !isPerformingWork) {
+    isHostCallbackScheduled = true;
+    requestIdleCallback()
+  }
+}
+
+
+
+function requestIdleCallback() {
+
+}
 
 // 取消任务调度
 function cancelCallback() {
