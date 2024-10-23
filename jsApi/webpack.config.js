@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Tungee
  * :date created: 2024-04-18 05:48:41
  * :last editor: 张德志
- * :date last edited: 2024-09-24 19:47:43
+ * :date last edited: 2024-10-21 14:06:50
  */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -18,7 +18,7 @@ module.exports = {
     filename: 'build.[contenthash].js',
   },
   devServer: {
-    port: 8002,
+    port: 8000,
     open: false,
   },
   module: {
