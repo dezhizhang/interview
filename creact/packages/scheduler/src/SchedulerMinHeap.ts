@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-23 14:31:03
  * :last editor: 张德志
- * :date last edited: 2024-10-23 15:13:05
+ * :date last edited: 2024-10-23 15:48:59
  */
 
 export type Heap<T extends Node> = Array<T>;
@@ -25,7 +25,6 @@ function compare(a: Node, b: Node) {
   return diff !== 0 ? diff : a.id - b.id;
 }
 
-
 // 从下住上堆化
 function siftUp<T extends Node>(heap: Heap<T>, node: T, i: number): void {
   let index = i;
@@ -41,6 +40,46 @@ function siftUp<T extends Node>(heap: Heap<T>, node: T, i: number): void {
       return;
     }
   }
+}
+
+function siftDown<T extends Node>(heap: Heap<T>, node: T, i: number): void {
+  let index = i;
+  const length = heap.length;
+  const halfLength = length >>> 1;
+  while (index < halfLength) {
+    const leftIndex = (index + 1) * 2 - 1;
+    const left = heap[leftIndex];
+    const rightIndex = leftIndex + 1;
+
+    const right = heap[rightIndex];
+
+    if (compare(left, node) < 0) {
+      if (rightIndex < length && compare(right, left) < 0) {
+        heap[index] = right;
+        heap[rightIndex] = node;
+        index = rightIndex;
+      } else {
+        heap[index] = left;
+        heap[leftIndex] = node;
+        index = leftIndex;
+      }
+    }
+  }
+}
+
+export function pop<T extends Node>(heap: Heap<T>): T | null {
+  if (heap.length === 0) {
+    return null;
+  }
+
+  const first = heap[0];
+  const last = heap.pop();
+
+  if (first !== last) {
+    heap[0] = last as any;
+    siftDown(heap, last, 0);
+  }
+  return first;
 }
 
 // 给堆顶添加元素
