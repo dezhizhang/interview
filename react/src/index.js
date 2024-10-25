@@ -1,29 +1,30 @@
 /*
- * :file description: 
+ * :file description:
  * :name: /react/src/index.js
  * :author:张德志
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-07-25 22:20:46
  * :last editor: 张德志
- * :date last edited: 2024-10-23 21:04:29
+ * :date last edited: 2024-10-25 11:19:04
  */
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "./react";
+import ReactDOM from "react-dom";
 
+// const element = <h1 className="title" style={{color:'red'}}>hello</h1>;
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// console.log(element);
 
-root.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>
-)
+const element = React.createElement(
+  "h1",
+  {
+    className: "title",
+    style: {
+      color: "red",
+    },
+  },
+  "hello","world"
+);
 
+console.log(element);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(element, document.querySelector("#root"));
