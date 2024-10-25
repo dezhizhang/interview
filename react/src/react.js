@@ -5,10 +5,11 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 10:36:25
  * :last editor: 张德志
- * :date last edited: 2024-10-25 11:29:24
+ * :date last edited: 2024-10-25 20:35:34
  */
 import { REACT_ELEMENT } from "./stants";
 import { toObject } from "./utils";
+import Component from "./component";
 
 function createElement(type, config, children) {
   let key, ref;
@@ -20,6 +21,7 @@ function createElement(type, config, children) {
   }
 
   let props = { ...config };
+  // console.log('arguments',arguments.length)
   if (config) {
     if (arguments.length > 3) {
       props.children = Array.prototype.slice.call(arguments, 2).map(toObject);
@@ -27,6 +29,7 @@ function createElement(type, config, children) {
       props.children = toObject(children);
     }
   }
+  console.log("props", props);
   return {
     $$typeof: REACT_ELEMENT,
     type,
@@ -38,6 +41,7 @@ function createElement(type, config, children) {
 
 const React = {
   createElement,
+  Component,
 };
 
 export default React;
