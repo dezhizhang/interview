@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-25 21:06:00
+ * :date last edited: 2024-10-26 05:44:04
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
@@ -17,12 +17,11 @@ function render(vdom, container) {
 
 function mount(vdom, container) {
   const newDom = createDom(vdom);
-  console.log('newDom----',newDom);
-  if(typeof newDom != 'string') {
+  console.log("newDom----", newDom);
+  if (typeof newDom != "string") {
     //2 真实dom到对应的位置
     container.appendChild(newDom);
   }
-
 }
 
 // 更新props
@@ -61,11 +60,20 @@ function changeChildren(children, dom) {
 }
 
 // 加载处理类组件
-function classComponent(vdom) {
+function mountClassComponent(vdom) {
   const { type, props } = vdom;
-  const instance = new type(props);
-  const classVdom = instance.render();
+  const classInstance = new type(props);
+
+  const classVdom = classInstance.render();
+  classInstance.oldReaderVnode = classVdom;
   return createDom(classVdom);
+}
+
+// 处理函数组件
+function mountFunctionComponent(vdom) {
+  const { type, props } = vdom;
+  let functionVdom = type(props);
+  return createDom(functionVdom);
 }
 
 // 创建dom
@@ -86,7 +94,7 @@ function createDom(vdom) {
   } else if (typeof type === "function") {
     // 处理类组件
     if (type.isReactComponent) {
-      return classComponent(vdom);
+      return mountClassComponent(vdom);
     }
   } else if ($$typeof === REACT_TEXT) {
     dom = document.createTextNode(content);
@@ -99,7 +107,15 @@ function createDom(vdom) {
   if (children) {
     changeChildren(children, dom);
   }
+  vdom.dom = dom;
   return dom;
+}
+
+// 实现组件更新
+export function twoVnode(dom, oldVnode, newVnode) {
+  let newdom = createDom(newVnode);
+  let olddom = createDom(oldVnode);
+  dom.replaceChild(newdom, olddom);
 }
 
 const ReactDOM = {

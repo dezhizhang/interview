@@ -5,12 +5,16 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-25 22:46:59
+ * :date last edited: 2024-10-26 05:44:45
  */
 
+import { twoVnode } from "./react-dom";
+
 // 实现React组件更新
-function shouldUpdate(classInstance,nextState) {
-    
+function shouldUpdate(classInstance, nextState) {
+  classInstance.state = nextState;
+  // 实现组件更新
+  classInstance.forceUpdate();
 }
 
 class Updater {
@@ -57,6 +61,13 @@ class Component {
   }
   setState(partialState) {
     this.updater.addState(partialState);
+  }
+  forceUpdate() {
+    // 实现组件更新
+    let newVNode = this.render();
+    let oldVnode = this.oldReaderVnode;
+    const oldDom = oldVnode.dom;
+    twoVnode(oldDom.parentNode, newVNode, oldVnode);
   }
 }
 
