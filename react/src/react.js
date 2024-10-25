@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 10:36:25
  * :last editor: 张德志
- * :date last edited: 2024-10-25 20:35:34
+ * :date last edited: 2024-10-26 07:18:53
  */
 import { REACT_ELEMENT } from "./stants";
 import { toObject } from "./utils";
@@ -21,7 +21,6 @@ function createElement(type, config, children) {
   }
 
   let props = { ...config };
-  // console.log('arguments',arguments.length)
   if (config) {
     if (arguments.length > 3) {
       props.children = Array.prototype.slice.call(arguments, 2).map(toObject);
@@ -29,7 +28,6 @@ function createElement(type, config, children) {
       props.children = toObject(children);
     }
   }
-  console.log("props", props);
   return {
     $$typeof: REACT_ELEMENT,
     type,

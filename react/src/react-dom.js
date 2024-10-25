@@ -5,10 +5,11 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-26 05:44:04
+ * :date last edited: 2024-10-26 07:18:12
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
+import addEvent from "./event";
 
 function render(vdom, container) {
   //1 vdom转换成dom
@@ -17,11 +18,7 @@ function render(vdom, container) {
 
 function mount(vdom, container) {
   const newDom = createDom(vdom);
-  console.log("newDom----", newDom);
-  if (typeof newDom != "string") {
-    //2 真实dom到对应的位置
-    container.appendChild(newDom);
-  }
+  container.appendChild(newDom);
 }
 
 // 更新props
@@ -33,9 +30,11 @@ function updateProps(dom, oldProps, newProps) {
       for (let attr in styleObject) {
         dom.style[attr] = styleObject[attr];
       }
+    } else if (key.startsWith("on")) {
+      addEvent(dom, key.toLocaleLowerCase(), newProps[key]);
     } else if (key !== "children") {
       dom[key] = newProps[key];
-    }
+    } 
   }
 
   // 更新属性
@@ -99,7 +98,6 @@ function createDom(vdom) {
   } else if ($$typeof === REACT_TEXT) {
     dom = document.createTextNode(content);
   }
-  console.log("props", props);
   //2 处理属性
   updateProps(dom, {}, props);
 
