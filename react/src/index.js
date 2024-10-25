@@ -5,10 +5,10 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-07-25 22:20:46
  * :last editor: 张德志
- * :date last edited: 2024-10-25 11:19:04
+ * :date last edited: 2024-10-25 11:49:30
  */
 import React from "./react";
-import ReactDOM from "react-dom";
+import ReactDOM from "./react-dom";
 
 // const element = <h1 className="title" style={{color:'red'}}>hello</h1>;
 
@@ -20,6 +20,7 @@ const element = React.createElement(
     className: "title",
     style: {
       color: "red",
+      fontSize:'22px'
     },
   },
   "hello","world"
