@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-26 21:17:22
+ * :date last edited: 2024-10-26 23:01:09
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
@@ -54,11 +54,11 @@ function updateProps(dom, oldProps, newProps) {
 function changeChildren(children, dom) {
   if (typeof children === "string" || typeof children === "number") {
     children = { $$typeof: REACT_TEXT, content: children };
-    render(children, dom);
+    mount(children, dom);
   } else if (typeof children === "object" && children.type) {
-    render(children, dom);
+    mount(children, dom);
   } else if (Array.isArray(children)) {
-    children.forEach((item) => render(item, dom));
+    children.forEach((item) => mount(item, dom));
   }
 }
 
@@ -127,6 +127,67 @@ function createDom(vdom) {
   vdom.dom = dom;
   if (ref) ref.current = dom;
   return dom;
+}
+
+function updateElement() {}
+
+function updateChildren(parentDom, oldChildren, newChildren) {
+  oldChildren = Array.isArray(oldChildren) ? oldChildren : [oldChildren];
+  newChildren = Array.isArray(newChildren) ? newChildren : [newChildren];
+
+  let keyMap = {};
+  oldChildren.forEach((oldChild, index) => {
+    const oldKey = oldChild.key ? oldChild : index;
+    keyMap[oldKey] = oldChild;
+  });
+
+  // 遍历
+  let lastPlaceIndex = 0;
+  const patch = [];
+  newChildren.forEach((newChild, index) => {
+    // 添加属性
+    newChild.mountIndex = index;
+    let newKey = newChild.key ? newChild : index;
+    let oldChild = keyMap[newKey];
+    if (oldChild) {
+      // 更新属性
+      updateElement(oldChild, newChild);
+      // 是否需要移动
+      if (oldChild.mountIndex < lastPlaceIndex) {
+        patch.push({
+          type: "move",
+          oldChild,
+          newChild,
+          mountIndex: index,
+        });
+        delete keyMap[newKey];
+        lastPlaceIndex = Math.max(oldChild.mountIndex, newChild.mountIndex);
+      }
+    } else {
+      patch.push({
+        type: "reactnext",
+        newChild,
+        mountIndex: index,
+      });
+    }
+  });
+
+  // 处理移动的,插入的patch
+  const moveChildren = patch
+    .filter((item) => item.type === "move")
+    .map((item) => item.oldVchild);
+
+  Object.values(keyMap)
+    .concat(moveChildren)
+    .forEach((oldChildren) => {
+      let currentDom = findDOM(oldChildren);
+      parentDom.removeChild(currentDom);
+    });
+
+  // 处理插入的元素
+  patch.forEach(action => {
+    const {type,oldVchild,newChild,mountIndex} = action;
+  })
 }
 
 // 实现组件更新
