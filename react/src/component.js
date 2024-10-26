@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-26 06:33:57
+ * :date last edited: 2024-10-26 21:12:56
  */
 
 import { twoVnode } from "./react-dom";
@@ -22,9 +22,18 @@ export const updateQueue = {
 
 // 实现React组件更新
 function shouldUpdate(classInstance, nextState) {
+  let willUpdate = true;
+  if (classInstance.shouldComponentUpdate) {
+    willUpdate = classInstance.shouldComponentUpdate({}, nextState);
+  }
   classInstance.state = nextState;
   // 实现组件更新
-  classInstance.forceUpdate();
+  if (willUpdate) {
+    classInstance.forceUpdate();
+    if (classInstance.componentDidUpdate) {
+      classInstance.componentDidUpdate();
+    }
+  }
 }
 
 class Updater {

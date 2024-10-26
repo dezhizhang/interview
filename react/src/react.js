@@ -5,9 +5,9 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 10:36:25
  * :last editor: 张德志
- * :date last edited: 2024-10-26 07:18:53
+ * :date last edited: 2024-10-26 11:16:29
  */
-import { REACT_ELEMENT } from "./stants";
+import { REACT_ELEMENT, REACT_FORWARD_REF } from "./stants";
 import { toObject } from "./utils";
 import Component from "./component";
 
@@ -37,7 +37,21 @@ function createElement(type, config, children) {
   };
 }
 
+// 获取ref
+function createRef() {
+  return { current: null };
+}
+
+function forwardRef(render) {
+  return {
+    $$typeof: REACT_FORWARD_REF,
+    render,
+  };
+}
+
 const React = {
+  createRef,
+  forwardRef,
   createElement,
   Component,
 };

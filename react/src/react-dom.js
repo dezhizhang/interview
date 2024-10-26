@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-26 07:18:12
+ * :date last edited: 2024-10-26 20:27:28
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
@@ -18,7 +18,11 @@ function render(vdom, container) {
 
 function mount(vdom, container) {
   const newDom = createDom(vdom);
+
   container.appendChild(newDom);
+  if (newDom.componentDidMount) {
+    newDom.componentDidMount();
+  }
 }
 
 // 更新props
@@ -34,7 +38,7 @@ function updateProps(dom, oldProps, newProps) {
       addEvent(dom, key.toLocaleLowerCase(), newProps[key]);
     } else if (key !== "children") {
       dom[key] = newProps[key];
-    } 
+    }
   }
 
   // 更新属性
@@ -75,6 +79,14 @@ function mountFunctionComponent(vdom) {
   return createDom(functionVdom);
 }
 
+// 处理forwardRef组件
+function mountForWardRef(vdom) {
+  const { type, ref, props } = vdom;
+  const refVnode = type.render(props, ref);
+
+  return createDom(refVnode);
+}
+
 // 创建dom
 function createDom(vdom) {
   if (typeof vdom === "string" || typeof vdom === "number") {
@@ -85,10 +97,12 @@ function createDom(vdom) {
   }
 
   let dom;
-  const { $$typeof, type, props, content } = vdom;
+  const { $$typeof, type, props, content, ref } = vdom;
 
   //1 判断type类型
-  if ($$typeof === REACT_ELEMENT) {
+  if (type && type.REACT_FORWARD_REF) {
+    return mountForWardRef(dom);
+  } else if ($$typeof === REACT_ELEMENT) {
     dom = document.createElement(type);
   } else if (typeof type === "function") {
     // 处理类组件
@@ -106,6 +120,7 @@ function createDom(vdom) {
     changeChildren(children, dom);
   }
   vdom.dom = dom;
+  if (ref) ref.current = dom;
   return dom;
 }
 
@@ -114,6 +129,15 @@ export function twoVnode(dom, oldVnode, newVnode) {
   let newdom = createDom(newVnode);
   let olddom = createDom(oldVnode);
   dom.replaceChild(newdom, olddom);
+}
+
+export function findDOM(vdom) {
+  if (!vdom) return null;
+  if (vdom.dom) {
+    return vdom.dom;
+  } else {
+    findDOM(vdom.oldReaderVnode);
+  }
 }
 
 const ReactDOM = {
