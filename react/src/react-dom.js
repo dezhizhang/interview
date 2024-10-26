@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-26 20:27:28
+ * :date last edited: 2024-10-26 21:17:22
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
@@ -64,12 +64,17 @@ function changeChildren(children, dom) {
 
 // 加载处理类组件
 function mountClassComponent(vdom) {
-  const { type, props } = vdom;
+  const { type, props, ref } = vdom;
   const classInstance = new type(props);
+  if (ref) ref.current = classInstance;
 
   const classVdom = classInstance.render();
   classInstance.oldReaderVnode = classVdom;
-  return createDom(classVdom);
+
+  vdom.oldReaderVnode = classInstance.oldReaderVnode = classVdom;
+  const dom = createDom(classVdom);
+
+  return dom;
 }
 
 // 处理函数组件

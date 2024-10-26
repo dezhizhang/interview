@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-26 21:12:56
+ * :date last edited: 2024-10-26 21:23:54
  */
 
 import { twoVnode } from "./react-dom";
@@ -21,10 +21,10 @@ export const updateQueue = {
 };
 
 // 实现React组件更新
-function shouldUpdate(classInstance, nextState) {
+function shouldUpdate(classInstance, nextProps, nextState) {
   let willUpdate = true;
   if (classInstance.shouldComponentUpdate) {
-    willUpdate = classInstance.shouldComponentUpdate({}, nextState);
+    willUpdate = classInstance.shouldComponentUpdate(nextProps, nextState);
   }
   classInstance.state = nextState;
   // 实现组件更新
@@ -55,9 +55,9 @@ class Updater {
   }
   // 更新组件获取最新数组
   updateComponent() {
-    const { peddingState, instance } = this;
+    const { peddingState,nextProps, instance } = this;
     if (peddingState.length > 0) {
-      shouldUpdate(instance, this.getState());
+      shouldUpdate(instance,nextProps, this.getState());
     }
   }
 

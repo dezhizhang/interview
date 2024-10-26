@@ -5,10 +5,10 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-07-25 22:20:46
  * :last editor: 张德志
- * :date last edited: 2024-10-26 20:47:07
+ * :date last edited: 2024-10-26 21:24:27
  */
-import React from "react";
-import ReactDOM from "react-dom";
+import React from "./react";
+import ReactDOM from "./react-dom";
 
 class App extends React.Component {
   constructor(props) {
