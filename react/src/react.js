@@ -5,13 +5,11 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 10:36:25
  * :last editor: 张德志
- * :date last edited: 2024-10-27 20:09:53
+ * :date last edited: 2024-10-27 21:18:34
  */
 import {
   REACT_ELEMENT,
   REACT_FORWARD_REF,
-  REACT_CONTEXT,
-  REACT_PROVIDER,
 } from "./stants";
 import { toObject } from "./utils";
 import Component from "./component";
@@ -54,28 +52,8 @@ function forwardRef(render) {
   };
 }
 
-function createContext() {
-  const context = {
-    $$typeof: REACT_CONTEXT,
-    REACT_PROVIDER,
-    _currentValue:undefined,
-  };
-
-  context.Provider = {
-    $$typeof: REACT_PROVIDER,
-    _context: context,
-  };
-
-  context.Consumer = {
-    $$typeof: REACT_CONTEXT,
-    _context: context,
-  };
-
-  return context;
-}
 
 const React = {
-  createContext,
   createRef,
   forwardRef,
   createElement,
