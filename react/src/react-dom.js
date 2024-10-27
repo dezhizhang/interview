@@ -5,10 +5,15 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-26 23:01:09
+ * :date last edited: 2024-10-27 20:10:40
  */
 
-import { REACT_ELEMENT, REACT_TEXT } from "./stants";
+import {
+  REACT_ELEMENT,
+  REACT_TEXT,
+  REACT_PROVIDER,
+  REACT_CONTEXT,
+} from "./stants";
 import addEvent from "./event";
 
 function render(vdom, container) {
@@ -71,7 +76,6 @@ function mountClassComponent(vdom) {
   const classVdom = classInstance.render();
   classInstance.oldReaderVnode = classVdom;
 
-  vdom.oldReaderVnode = classInstance.oldReaderVnode = classVdom;
   const dom = createDom(classVdom);
 
   return dom;
@@ -92,6 +96,25 @@ function mountForWardRef(vdom) {
   return createDom(refVnode);
 }
 
+// 处理Privoder级件
+function mountProviderComponent(vdom) {
+  const {type,props} = vdom;
+
+  const context = type._context;
+  context._currentValue = props.value;
+
+  const renderVdom = props.children;
+
+  // 用作更新操作
+  // vdom.oldReaderVnode = renderVdom;
+
+  return createDom(renderVdom);
+}
+
+function mountContextComponent(vdom) {
+  console.log("vdom", vdom);
+}
+
 // 创建dom
 function createDom(vdom) {
   if (typeof vdom === "string" || typeof vdom === "number") {
@@ -104,8 +127,11 @@ function createDom(vdom) {
   let dom;
   const { $$typeof, type, props, content, ref } = vdom;
 
-  //1 判断type类型
-  if (type && type.REACT_FORWARD_REF) {
+  if (type && type.$$typeof === REACT_PROVIDER) {
+    return mountProviderComponent(vdom);
+  } else if (type && type.$$typeof === REACT_CONTEXT) {
+    return mountContextComponent(vdom);
+  } else if (type && type.REACT_FORWARD_REF) {
     return mountForWardRef(dom);
   } else if ($$typeof === REACT_ELEMENT) {
     dom = document.createElement(type);
@@ -185,9 +211,9 @@ function updateChildren(parentDom, oldChildren, newChildren) {
     });
 
   // 处理插入的元素
-  patch.forEach(action => {
-    const {type,oldVchild,newChild,mountIndex} = action;
-  })
+  patch.forEach((action) => {
+    const { type, oldVchild, newChild, mountIndex } = action;
+  });
 }
 
 // 实现组件更新
@@ -202,7 +228,7 @@ export function findDOM(vdom) {
   if (vdom.dom) {
     return vdom.dom;
   } else {
-    findDOM(vdom.oldReaderVnode);
+    findDOM(vdom);
   }
 }
 
