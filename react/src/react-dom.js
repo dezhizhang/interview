@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-27 21:48:06
+ * :date last edited: 2024-10-27 22:07:05
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
@@ -34,7 +34,7 @@ function updateProps(dom, oldProps, newProps) {
       dom[key] = newProps[key];
     }
   }
-  
+
   // 更新属性
   for (let key in oldProps) {
     // 新属性中没有旧属性删除旧属性
@@ -47,21 +47,34 @@ function updateProps(dom, oldProps, newProps) {
   return dom;
 }
 
+// 处理子节点
+function changeChildren(dom, children) {
+  // 如果只有一个子节点
+  if(typeof children === 'object' && children.type) {
+    render(children,dom);
+  }else if(Array.isArray(children)) {
+    children.forEach((item) => render(item,dom))
+  }  
+}
+
 // 创建真实dom
 function createDom(vdom) {
   //1 vdom转换成dom
-  const { $$typeof, props, type } = vdom;
-
+  const { $$typeof, props, type,content } = vdom;
+  
   let dom;
   if ($$typeof === REACT_ELEMENT) {
     dom = document.createElement(type);
   } else if (type === REACT_TEXT) {
-    dom = document.createTextNode(type);
+    dom = document.createTextNode(content);
   }
   //2 处理属性
   updateProps(dom, {}, props);
 
-  //3 children
+  // 处理子节点
+  const children = props?.children;
+  changeChildren(dom,children);
+
   return dom;
 }
 
