@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-28 12:50:07
+ * :date last edited: 2024-10-29 04:16:36
  */
 
 import { twoVnode } from "./react-dom";
@@ -81,6 +81,8 @@ class Component {
     const parentDom = oldDom.parentNode;
     // 实现组件更新
     twoVnode(parentDom, oldVdom, newVdom);
+    // 上一次的等于新的
+    this.oldReaderVdom = newVdom;
   }
 }
 
