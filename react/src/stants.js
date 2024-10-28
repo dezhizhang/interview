@@ -5,14 +5,14 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:11:32
  * :last editor: 张德志
- * :date last edited: 2024-10-27 19:48:23
+ * :date last edited: 2024-10-28 08:00:24
  */
-export const REACT_ELEMENT = Symbol("react.element");
+export const REACT_ELEMENT = Symbol.for("react.element");
 
-export const REACT_TEXT = Symbol("react.text");
+export const REACT_TEXT = Symbol.for("react.text");
 
 // 获取ref
-export const REACT_FORWARD_REF = Symbol("react.forward_ref");
+export const REACT_FORWARD_REF = Symbol.for("react.forward_ref");
 
 // React上下文
 export const REACT_CONTEXT = Symbol('react.context');
