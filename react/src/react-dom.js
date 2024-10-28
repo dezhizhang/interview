@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-29 06:39:09
+ * :date last edited: 2024-10-29 07:00:12
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
@@ -80,8 +80,10 @@ function mountFunctionComponent(vdom) {
 
 // 处理类组件
 function mountClassComponent(vdom) {
-  const { type, props } = vdom;
+  const { type, props, ref } = vdom;
   const classInstance = new type(props);
+  // 向上传递类组件ref
+  if (ref) ref.current = classInstance;
   // 获取虚拟dom
   const classVdom = classInstance.render();
   classInstance.oldReaderVdom = classVdom;
