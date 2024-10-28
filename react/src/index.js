@@ -21,7 +21,10 @@ class App extends React.Component {
     return (
       <div>
         <div style={{ color: "red" }}>{this.state.num}</div>
-        <button onClick={() => this.setState({ num: this.state.num + 1 })}>
+        <button onClick={() =>{
+          this.setState({ num: this.state.num + 1 });
+          this.setState({ num: this.state.num + 1 })
+        }}>
           +
         </button>
       </div>

@@ -5,10 +5,23 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-29 04:16:36
+ * :date last edited: 2024-10-29 04:34:43
  */
 
 import { twoVnode } from "./react-dom";
+
+export const updateQueue = {
+  // 标识是同步更新还是异步更新
+  isBatchData:false, 
+  // 需要更新的数组
+  updaters:[],
+  batchUpdate() {
+    updateQueue.updaters.forEach(updater => updater.updateComponent());
+    updateQueue.isBatchData = false;
+    updateQueue.updaters.length = 0;
+  }
+}
+
 
 // 实现组件更新
 function shouldUpdate(classInstance, nextState) {
@@ -55,7 +68,12 @@ class Updater {
   }
   // 更新数据
   emitUpdate() {
-    this.updateComponent();
+    if(updateQueue.isBatchData) {
+      // 异步处理收集所有的setState()
+      updateQueue.updaters.push(this);
+    }else {
+      this.updateComponent();
+    }
   }
 }
 
