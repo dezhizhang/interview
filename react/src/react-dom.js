@@ -5,10 +5,11 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-28 12:55:19
+ * :date last edited: 2024-10-29 06:39:09
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
+import addEvent from "./event";
 
 function render(vdom, container) {
   //1 vdom变成真实dom
@@ -36,7 +37,8 @@ function updateProps(dom, oldProps, newProps) {
         dom.style[attr] = styleObj[attr];
       }
     } else if (key.startsWith("on")) {
-      dom[key.toLocaleLowerCase()] = newProps[key];
+      addEvent(dom, key.toLocaleLowerCase(), newProps[key]);
+      // dom[key.toLocaleLowerCase()] = newProps[key];
     } else {
       // 其它属性
       if (dom) dom[key] = newProps[key];
@@ -97,7 +99,7 @@ function createDom(vdom) {
   }
 
   //1 vdom转换成dom
-  const { $$typeof, props, type, content } = vdom;
+  const { $$typeof, props, type, content, ref } = vdom;
 
   let dom;
   if ($$typeof === REACT_ELEMENT) {
@@ -122,6 +124,8 @@ function createDom(vdom) {
 
   // 保存真实dom
   vdom.dom = dom;
+  // 原生组件ref挂载
+  if (ref) ref.current = dom;
 
   return dom;
 }
@@ -133,7 +137,7 @@ export function twoVnode(parentDom, oldVnode, newVnode) {
   const oldDom = oldVnode.dom;
 
   // 实现dom更新
-  parentDom.replaceChild(newDom,oldDom);
+  parentDom.replaceChild(newDom, oldDom);
 }
 
 const ReactDOM = {
