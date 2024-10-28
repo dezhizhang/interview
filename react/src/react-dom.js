@@ -5,21 +5,26 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-28 08:07:42
+ * :date last edited: 2024-10-28 09:26:55
  */
 
 import { REACT_ELEMENT, REACT_TEXT } from "./stants";
 
 function render(vdom, container) {
   //1 vdom变成真实dom
+  mount(vdom, container);
+}
+
+function mount(vdom, container) {
   const dom = createDom(vdom);
-  //2 真实dom放到对应位置
-  container.appendChild(dom);
+  if (dom) {
+    //2 真实dom放到对应位置
+    container.appendChild(dom);
+  }
 }
 
 // 更新属性
 function updateProps(dom, oldProps, newProps) {
-  console.log(newProps);
   for (let key in newProps) {
     // 跳过children处理
     if (key === "children") {
@@ -32,7 +37,7 @@ function updateProps(dom, oldProps, newProps) {
       }
     } else {
       // 其它属性
-      dom[key] = newProps[key];
+      if (dom) dom[key] = newProps[key];
     }
   }
 
@@ -50,11 +55,14 @@ function updateProps(dom, oldProps, newProps) {
 
 // 处理子节点
 function changeChildren(dom, children) {
-  // 如果只有一个子节点
-  if (typeof children === "object" && children.type) {
-    render(children, dom);
+  if (typeof children === "string" || typeof children === "number") {
+    children = { type: REACT_TEXT, content: children };
+    mount(children, dom);
+  } else if (typeof children === "object" && children.type) {
+    // 如果只有一个子节点
+    mount(children, dom);
   } else if (Array.isArray(children)) {
-    children.forEach((item) => render(item, dom));
+    children.forEach((item) => mount(item, dom));
   }
 }
 
@@ -66,23 +74,46 @@ function mountFunctionComponent(vdom) {
   return createDom(functionVdom);
 }
 
+// 处理类组件
+function mountClassComponent(vdom) {
+  const { type, props } = vdom;
+  const classInstance = new type(props);
+  // 获取虚拟dom
+  const classVdom = classInstance.render();
+  // 转换成真实dom
+  return createDom(classVdom);
+}
+
 // 创建真实dom
 function createDom(vdom) {
+
+  if (typeof vdom === "string" || typeof vdom === "number") {
+    vdom = {
+      type: REACT_TEXT,
+      content: vdom,
+    };
+  }
+
   //1 vdom转换成dom
   const { $$typeof, props, type, content } = vdom;
 
   let dom;
   if ($$typeof === REACT_ELEMENT) {
     if (typeof type === "function") {
-      return mountFunctionComponent(vdom);
-    } else {
+      if (type.isReactComponent) {
+        return mountClassComponent(vdom);
+      } else {
+        return mountFunctionComponent(vdom);
+      }
+    }else {
       dom = document.createElement(type);
     }
-  } else if (type === REACT_TEXT) {
+    
+  } else {
     dom = document.createTextNode(content);
   }
   //2 处理属性
-  dom && updateProps(dom, {}, props);
+  updateProps(dom, {}, props);
 
   // 处理子节点
   const children = props?.children;

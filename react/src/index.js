@@ -5,24 +5,35 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-07-25 22:20:46
  * :last editor: 张德志
- * :date last edited: 2024-10-28 08:16:44
+ * :date last edited: 2024-10-28 08:53:40
  */
 import React from "./react";
 import ReactDOM from "./react-dom";
 
-function App({name}) {
-  return React.createElement('h1',{
-    style:{
-      color:'red'
-    }
-  },'hello world')
+// function App({name}) {
+//   return React.createElement('h1',{
+//     style:{
+//       color:'red'
+//     }
+//   },'hello world')
+// }
+
+// const element = <App name="hello world"/>;
+
+// console.log('element',element);
+
+class App extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+  render() {
+    return <div style={{color:'red'}}>hello {this.props.name}</div>
+  }
 }
 
-const element = <App name="hello world"/>;
 
-console.log('element',element);
-
+console.log(<App/>)
 
 
-
-ReactDOM.render(element,document.querySelector('#root'));
+ReactDOM.render(<App name={"world"}/>,document.querySelector('#root'));
