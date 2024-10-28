@@ -5,12 +5,17 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-28 11:26:11
+ * :date last edited: 2024-10-28 12:50:07
  */
 
+import { twoVnode } from "./react-dom";
+
 // 实现组件更新
-function shouldUpdate(classInstance,nextState) {
-    
+function shouldUpdate(classInstance, nextState) {
+  // 获取到最新的数据
+  classInstance.state = nextState;
+  // 实现组件数据更新
+  classInstance.forceUpdate();
 }
 
 class Updater {
@@ -32,7 +37,7 @@ class Updater {
     const { classInstance, peddingState } = this;
     let { state } = classInstance;
     peddingState.forEach((nestState) => {
-      state = { ...state, nestState };
+      state = { ...state, ...nestState };
     });
 
     // 清空数据
@@ -63,6 +68,19 @@ class Component {
   }
   setState(partialState) {
     this.updater.addState(partialState);
+  }
+  // 组件的强制更新
+  forceUpdate() {
+    // 实现组件更新
+    const newVdom = this.render();
+    // 获取旧的vdom
+    const oldVdom = this.oldReaderVdom;
+    // 获取到旧真实dom
+    const oldDom = oldVdom.dom;
+    // 获取到父节点
+    const parentDom = oldDom.parentNode;
+    // 实现组件更新
+    twoVnode(parentDom, oldVdom, newVdom);
   }
 }
 
