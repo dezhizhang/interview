@@ -5,10 +5,10 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-29 07:00:12
+ * :date last edited: 2024-10-29 07:22:11
  */
 
-import { REACT_ELEMENT, REACT_TEXT } from "./stants";
+import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
 import addEvent from "./event";
 
 function render(vdom, container) {
@@ -91,6 +91,15 @@ function mountClassComponent(vdom) {
   return createDom(classVdom);
 }
 
+// 处理ref函数组件
+function mountForWardRef(vdom) {
+  const { type, props, ref } = vdom;
+  // 获取ref虚拟dom
+  const refVdom = type.render(props, ref);
+  // 转换成真实dom
+  return createDom(refVdom);
+}
+
 // 创建真实dom
 function createDom(vdom) {
   if (typeof vdom === "string" || typeof vdom === "number") {
@@ -104,6 +113,8 @@ function createDom(vdom) {
   const { $$typeof, props, type, content, ref } = vdom;
 
   let dom;
+  console.log("vdom", vdom);
+
   if ($$typeof === REACT_ELEMENT) {
     if (typeof type === "function") {
       if (type.isReactComponent) {
@@ -111,6 +122,8 @@ function createDom(vdom) {
       } else {
         return mountFunctionComponent(vdom);
       }
+    } else if (type && type.$$typeof === REACT_FORWARD_REF) {
+      return mountForWardRef(vdom);
     } else {
       dom = document.createElement(type);
     }

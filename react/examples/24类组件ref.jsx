@@ -1,22 +1,32 @@
 /*
- * :file description:
- * :name: /react/src/index.js
+ * :file description: 
+ * :name: /react/examples/24类组件ref.jsx
  * :author:张德志
  * :copyright: (c) 2024, Xiaozhi
- * :date created: 2024-07-25 22:20:46
+ * :date created: 2024-10-29 07:02:40
  * :last editor: 张德志
- * :date last edited: 2024-10-29 07:15:12
+ * :date last edited: 2024-10-29 07:12:38
  */
-import React from "./react";
-import ReactDOM from "./react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 
+class TextInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.inputRef = React.createRef();
+  }
 
-const TextInput = React.forwardRef((props,ref) => {
-  return <input ref={ref}/>
-});
+  focus = () => {
+    this.inputRef.current.focus();
+  }
 
-console.log('TextInput',TextInput);
+  render() {
+    return <input ref={this.inputRef} />;
+  }
+}
 
+console.log('TextInput',<TextInput/>);
 
 
 class App extends React.Component {
@@ -24,6 +34,7 @@ class App extends React.Component {
     super(props);
     this.inputRef = React.createRef();
   }
+  handleSum = () => {};
   render() {
     return (
       <div>
@@ -41,5 +52,7 @@ class App extends React.Component {
     );
   }
 }
+
+// console.log(<App />);
 
 ReactDOM.render(<App name={"world"} />, document.querySelector("#root"));
