@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-29 10:02:20
+ * :date last edited: 2024-10-29 11:33:18
  */
 
 import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
@@ -157,14 +157,93 @@ function createDom(vdom) {
   return dom;
 }
 
-// 现新dom更新
-export function twoVnode(parentDom, oldVnode, newVnode) {
-  // 获取到新的真实dom
-  const newDom = createDom(newVnode);
-  const oldDom = findDom(oldVnode);
+// 移除节点
+function unmontVnode(vdom) {
+  let { props, ref } = vdom;
+  const currentDom = findDom(vdom);
+  if (vdom.classInstance && vdom.classInstance.componentWillMount) {
+    vdom.classInstance.componentWillMount();
+  }
+  if (ref) {
+    ref = null;
+  }
+  if (props.children) {
+    // 递归处理元素
+    const children = Array.isArray(props.children)
+      ? props.children
+      : [props.children];
+    children.forEach(unmontVnode);
+  }
 
-  // 实现dom更新
-  parentDom.replaceChild(newDom, oldDom);
+  // 删除元素
+  if (currentDom) {
+    currentDom.parentNode.removeChild(currentDom);
+  }
+}
+
+// 添加新节点
+function moutVnode(parentDom, newVnode, nextDom) {
+  const newDom = findDom(newVnode);
+
+  if (newDom) {
+    // 插入到对应的位置
+    parentDom.insertBefore(newDom, nextDom);
+  } else {
+    // 插入到最后位置
+    parentDom.appendChild(newDom);
+  }
+  // 调用组件挂载完毕生命周期
+  if (newDom.componentDidMount) {
+    newDom.componentDidMount();
+  }
+}
+
+// 更新children
+function updateChildren(currentDom,oldChildren,newChildren) {
+    oldChildren = Array.isArray(oldChildren) ? oldChildren:[oldChildren];
+    newChildren = Array.isArray(newChildren) ? newChildren:[newChildren];
+    
+    const maxLength = Math.max(oldChildren.length,newChildren.length);
+
+    for(let i=0;i < maxLength;i++) {
+      // 更新组件
+      const nextDom = oldChildren.find((item,index) => index > i && item && findDom(item));
+      twoVnode(currentDom,oldChildren[i],newChildren[i],nextDom && findDom(nextDom));
+    }
+}
+
+// 更新元素
+function updateElement(oldVdom,newVnode) {
+  if(oldVdom.type === REACT_TEXT && newVnode.type === REACT_TEXT) {
+    const currentDom = newVnode.dom = findDom(oldVdom);
+    currentDom.textContent = newVnode.content;
+  }else if(typeof oldVdom.type === 'string') {
+    // 百分百有问题傻带人写的
+    const currentDom = newVnode.dom = findDom(oldVdom);
+    // 更新属性
+    updateProps(currentDom,oldVdom.props,newVnode.props);
+    // 处理children
+    updateChildren(currentDom,oldVdom.props.children,newVnode.props.children);
+  }
+}
+
+// 现新dom更新
+export function twoVnode(parentDom, oldVnode, newVnode, nextDom) {
+  if (oldVnode && !newVnode) {
+    // 新的设有，旧的存在移除旧的
+    unmontVnode(oldVnode);
+  } else if (!oldVnode && newVnode) {
+    moutVnode(parentDom, newVnode, nextDom);
+  } else if (oldVnode && newVnode && oldVnode.type !== newVnode.type) {
+    // 新旧节点都有
+    // 新的节点类型与旧节点类型不相等
+    // 删除老节点添加新节点
+    unmontVnode(oldVnode);
+    moutVnode(parentDom, newVnode, nextDom);
+  }else {
+    // 类型相同 更新元素
+    updateElement(oldVnode,newVnode);
+  }
 }
 
 // 虚拟dom转换成真实dom
