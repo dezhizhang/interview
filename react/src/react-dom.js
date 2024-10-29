@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-29 09:18:31
+ * :date last edited: 2024-10-29 10:02:20
  */
 
 import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
@@ -21,6 +21,10 @@ function mount(vdom, container) {
   if (dom) {
     //2 真实dom放到对应位置
     container.appendChild(dom);
+    if (dom.componentDidMount) {
+      // 组件挂载完毕
+      dom.componentDidMount();
+    }
   }
 }
 
@@ -38,7 +42,6 @@ function updateProps(dom, oldProps, newProps) {
       }
     } else if (key.startsWith("on")) {
       addEvent(dom, key.toLocaleLowerCase(), newProps[key]);
-      // dom[key.toLocaleLowerCase()] = newProps[key];
     } else {
       // 其它属性
       if (dom) dom[key] = newProps[key];
@@ -86,11 +89,19 @@ function mountClassComponent(vdom) {
   const classInstance = new type(props);
   // 向上传递类组件ref
   if (ref) ref.current = classInstance;
+  // 组件将要挂载
+  if (classInstance.componentWillMount) {
+    classInstance.componentWillMount();
+  }
   // 获取虚拟dom
   const classVdom = classInstance.render();
   classInstance.oldReaderVdom = classVdom;
   // 转换成真实dom
-  return createDom(classVdom);
+  const dom = createDom(classVdom);
+  if (classInstance.componentDidMount) {
+    dom.componentDidMount = classInstance.componentDidMount;
+  }
+  return dom;
 }
 
 // 处理ref函数组件

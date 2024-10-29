@@ -5,30 +5,35 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-29 08:33:03
+ * :date last edited: 2024-10-29 09:51:58
  */
 
-import { twoVnode,findDom } from "./react-dom";
+import { twoVnode, findDom } from "./react-dom";
 
 export const updateQueue = {
   // 标识是同步更新还是异步更新
-  isBatchData:false, 
+  isBatchData: false,
   // 需要更新的数组
-  updaters:[],
+  updaters: [],
   batchUpdate() {
-    updateQueue.updaters.forEach(updater => updater.updateComponent());
+    updateQueue.updaters.forEach((updater) => updater.updateComponent());
     updateQueue.isBatchData = false;
     updateQueue.updaters.length = 0;
-  }
-}
-
+  },
+};
 
 // 实现组件更新
-function shouldUpdate(classInstance, nextState) {
+function shouldUpdate(classInstance, nextProps, nextState) {
+  let willUpdate = true;
+  if (classInstance.shouldComponentUpdate) {
+    willUpdate = classInstance.shouldComponentUpdate(nextProps, nextState);
+  }
   // 获取到最新的数据
   classInstance.state = nextState;
-  // 实现组件数据更新
-  classInstance.forceUpdate();
+  if (willUpdate) {
+    // 实现组件数据更新
+    classInstance.forceUpdate();
+  }
 }
 
 class Updater {
@@ -61,17 +66,17 @@ class Updater {
 
   // 更新组件
   updateComponent() {
-    const { classInstance, peddingState } = this;
+    const { classInstance,props, peddingState } = this;
     if (peddingState.length > 0) {
-      shouldUpdate(classInstance, this.getState());
+      shouldUpdate(classInstance,props, this.getState());
     }
   }
   // 更新数据
   emitUpdate() {
-    if(updateQueue.isBatchData) {
+    if (updateQueue.isBatchData) {
       // 异步处理收集所有的setState()
       updateQueue.updaters.push(this);
-    }else {
+    } else {
       this.updateComponent();
     }
   }
@@ -101,6 +106,10 @@ class Component {
     twoVnode(parentDom, oldVdom, newVdom);
     // 上一次的等于新的
     this.oldReaderVdom = newVdom;
+    if(this.componentDidUpdate) {
+      // 组件更新完毕
+      this.componentDidUpdate();
+    }
   }
 }
 

@@ -5,52 +5,81 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-07-25 22:20:46
  * :last editor: 张德志
- * :date last edited: 2024-10-29 09:03:50
+ * :date last edited: 2024-10-29 10:05:32
  */
 
 import React from "./react";
 import ReactDOM from "./react-dom";
 
-
-class Children extends React.Component{
-  render() {
-    return <div>{this.props.num}</div>
-  }
-}
-
-function Fatcher(props) {
-  return <Children {...props}/>
-}
-
-
-class App extends React.Component {
+class Fatcher extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      num:1,
-    }
-    setTimeout(() => {
-      this.setState({
-        num: this.state.num + 1
-      })
-    },1000)
+      num: 1,
+    };
   }
+  componentWillMount() {
+    console.log("Fatcher componentWillMount(组件加载之前)");
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
+
+  componentDidMount() {
+    console.log("Fatcher componentDidMount(组件加载之后)");
+  }
+
+  componentDidUpdate() {
+    console.log("Fatcher componentDidUpdate(组件将要更新)");
+  }
+
   render() {
     return (
       <div>
-        <Fatcher num={this.state.num} />
-        <button
-          onClick={() => {
-            this.setState({
-              num:this.state.num + 1,
-            })
-          }}
-        >
-          求合
+        <p>{this.state.num}</p>
+        <button onClick={() => this.setState({ num: this.state.num + 1 })}>
+          +
         </button>
       </div>
     );
   }
 }
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      num: 1,
+    };
+    console.log("组件初始化");
+  }
+
+  componentWillMount() {
+    console.log("App componentWillMount(组件加载之前)");
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
+
+  componentDidMount() {
+    console.log("App componentDidMount(组件加载之后)");
+  }
+
+  componentDidUpdate() {
+    console.log("App componentDidUpdate(组件将要更新)");
+  }
+
+  render() {
+    return (
+      <div>
+        <Fatcher />
+      </div>
+    );
+  }
+}
+
+console.log(ReactDOM.version);
 
 ReactDOM.render(<App name={"world"} />, document.querySelector("#root"));
