@@ -5,10 +5,10 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-29 04:34:43
+ * :date last edited: 2024-10-29 08:33:03
  */
 
-import { twoVnode } from "./react-dom";
+import { twoVnode,findDom } from "./react-dom";
 
 export const updateQueue = {
   // 标识是同步更新还是异步更新
@@ -94,7 +94,7 @@ class Component {
     // 获取旧的vdom
     const oldVdom = this.oldReaderVdom;
     // 获取到旧真实dom
-    const oldDom = oldVdom.dom;
+    const oldDom = findDom(oldVdom);
     // 获取到父节点
     const parentDom = oldDom.parentNode;
     // 实现组件更新

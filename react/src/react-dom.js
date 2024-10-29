@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-29 07:22:11
+ * :date last edited: 2024-10-29 09:18:31
  */
 
 import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
@@ -74,6 +74,8 @@ function changeChildren(dom, children) {
 function mountFunctionComponent(vdom) {
   const { type, props } = vdom;
   const functionVdom = type(props);
+  // 挂载属性
+  vdom.oldReaderVdom = functionVdom;
   // 获取真实dom
   return createDom(functionVdom);
 }
@@ -113,7 +115,6 @@ function createDom(vdom) {
   const { $$typeof, props, type, content, ref } = vdom;
 
   let dom;
-  console.log("vdom", vdom);
 
   if ($$typeof === REACT_ELEMENT) {
     if (typeof type === "function") {
@@ -149,10 +150,20 @@ function createDom(vdom) {
 export function twoVnode(parentDom, oldVnode, newVnode) {
   // 获取到新的真实dom
   const newDom = createDom(newVnode);
-  const oldDom = oldVnode.dom;
+  const oldDom = findDom(oldVnode);
 
   // 实现dom更新
   parentDom.replaceChild(newDom, oldDom);
+}
+
+// 虚拟dom转换成真实dom
+export function findDom(vdom) {
+  if (!vdom) return null;
+  if (vdom.dom) {
+    return vdom.dom;
+  } else {
+    findDom(vdom.oldReaderVdom);
+  }
 }
 
 const ReactDOM = {

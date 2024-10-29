@@ -5,34 +5,45 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-07-25 22:20:46
  * :last editor: 张德志
- * :date last edited: 2024-10-29 07:15:12
+ * :date last edited: 2024-10-29 09:03:50
  */
+
 import React from "./react";
 import ReactDOM from "./react-dom";
 
 
-const TextInput = React.forwardRef((props,ref) => {
-  return <input ref={ref}/>
-});
+class Children extends React.Component{
+  render() {
+    return <div>{this.props.num}</div>
+  }
+}
 
-console.log('TextInput',TextInput);
-
+function Fatcher(props) {
+  return <Children {...props}/>
+}
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.inputRef = React.createRef();
+    this.state = {
+      num:1,
+    }
+    setTimeout(() => {
+      this.setState({
+        num: this.state.num + 1
+      })
+    },1000)
   }
   render() {
     return (
       <div>
-        <TextInput ref={this.inputRef} />
+        <Fatcher num={this.state.num} />
         <button
-          onClick={() =>{
-            console.log(this.inputRef);
-
-            this.inputRef.current.focus()
+          onClick={() => {
+            this.setState({
+              num:this.state.num + 1,
+            })
           }}
         >
           求合
