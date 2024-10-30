@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-30 10:05:39
+ * :date last edited: 2024-10-30 10:11:38
  */
 
 import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
@@ -101,6 +101,7 @@ function mountClassComponent(vdom) {
   if (classInstance.componentDidMount) {
     dom.componentDidMount = classInstance.componentDidMount;
   }
+  dom.classInstance = classInstance;
   return dom;
 }
 
@@ -253,6 +254,7 @@ function updateElement(oldVdom, newVnode) {
     updateChildren(currentDom, oldVdom.props.children, newVnode.props.children);
   } else if (typeof oldVdom.type === "function") {
     if (oldVdom.type.isReactComponent) {
+      debugger;
       newVnode.classInstance = oldVdom.classInstance;
       updateClassComponent(oldVdom, newVnode);
     } else {
