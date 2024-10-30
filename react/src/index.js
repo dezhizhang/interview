@@ -5,38 +5,33 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-07-25 22:20:46
  * :last editor: 张德志
- * :date last edited: 2024-10-30 09:31:39
+ * :date last edited: 2024-10-30 11:56:34
  */
 
 import React from "./react";
 import ReactDOM from "./react-dom";
 
-class Fatcher extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-  render() {
-    return <p>{this.props.num}</p>
-  }
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      num: 1,
+      list: ["A", "B", "C", "D", "E", "F"],
     };
   }
   render() {
-    console.log(this.state.num)
+    console.log(this.state.num);
     return (
       <div>
-        <Fatcher num={this.state.num}/>
-        {/* <p>{this.state.num}</p> */}
-        <button onClick={() => this.setState({ num: this.state.num + 1 })}>
-          +
-        </button>
+        <ul>
+          {this.state.list.map((item) => {
+            return <li key={item}>{item}</li>;
+          })}
+        </ul>
+        <button onClick={() => {
+          this.setState({
+            list:['C','D','E','F','G']
+          })
+        }}>按钮</button>
       </div>
     );
   }

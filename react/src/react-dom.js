@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-30 10:11:38
+ * :date last edited: 2024-10-30 12:06:18
  */
 
 import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
@@ -61,15 +61,19 @@ function updateProps(dom, oldProps, newProps) {
 }
 
 // 处理子节点
-function changeChildren(dom, children) {
+function changeChildren(dom, children,props) {
   if (typeof children === "string" || typeof children === "number") {
     children = { type: REACT_TEXT, content: children };
     mount(children, dom);
   } else if (typeof children === "object" && children.type) {
     // 如果只有一个子节点
+    props.children.mountIndex = 0;
     mount(children, dom);
   } else if (Array.isArray(children)) {
-    children.forEach((item) => mount(item, dom));
+    children.forEach((item,index) =>{
+      item.mountIndex = index;
+      mount(item, dom)
+    });
   }
 }
 
@@ -148,7 +152,7 @@ function createDom(vdom) {
 
   // 处理子节点
   const children = props?.children;
-  changeChildren(dom, children);
+  changeChildren(dom, children,props);
 
   // 保存真实dom
   vdom.dom = dom;
@@ -204,21 +208,51 @@ function updateChildren(currentDom, oldChildren, newChildren) {
   oldChildren = Array.isArray(oldChildren) ? oldChildren : [oldChildren];
   newChildren = Array.isArray(newChildren) ? newChildren : [newChildren];
 
-  const maxLength = Math.max(oldChildren.length, newChildren.length);
+  const keyOldMap = {};
+  oldChildren.forEach((oldChild,index) => {
+    const oldKey = oldChild.key ? oldChild:index;
+    keyOldMap[oldKey] = oldChild;
+  });
 
-  for (let i = 0; i < maxLength; i++) {
-    // 更新组件
-    const nextDom = oldChildren.find(
-      (item, index) => index > i && item && findDom(item)
-    );
-    twoVnode(
-      currentDom,
-      oldChildren[i],
-      newChildren[i],
-      nextDom && findDom(nextDom)
-    );
-  }
+  // 位移
+  const lastPlaceIndex = 0;
+
+  const patch = [];
+  newChildren.forEach((newChild,index) => {
+    newChild.mountIndex = index;
+    const newKey = newChild.key ? newChild.key:index;
+    const oldChild = keyOldMap[newKey];
+    if(oldChild) {
+      // 更新属性更新child
+      updateElement(oldChild,newChild);
+    }
+  })
+
+
+
+  console.log('keyOldMap',keyOldMap);
+
+
+  // const maxLength = Math.max(oldChildren.length, newChildren.length);
+
+  // for (let i = 0; i < maxLength; i++) {
+  //   // 更新组件
+  //   const nextDom = oldChildren.find(
+  //     (item, index) => index > i && item && findDom(item)
+  //   );
+  //   twoVnode(
+  //     currentDom,
+  //     oldChildren[i],
+  //     newChildren[i],
+  //     nextDom && findDom(nextDom)
+  //   );
+  // }
+
+
+
 }
+  
+
 
 // 更新类组件
 function updateClassComponent(oldVdom, newVdom) {
