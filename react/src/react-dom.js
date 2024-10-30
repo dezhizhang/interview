@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-29 11:33:18
+ * :date last edited: 2024-10-30 10:05:39
  */
 
 import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
@@ -199,31 +199,66 @@ function moutVnode(parentDom, newVnode, nextDom) {
 }
 
 // 更新children
-function updateChildren(currentDom,oldChildren,newChildren) {
-    oldChildren = Array.isArray(oldChildren) ? oldChildren:[oldChildren];
-    newChildren = Array.isArray(newChildren) ? newChildren:[newChildren];
-    
-    const maxLength = Math.max(oldChildren.length,newChildren.length);
+function updateChildren(currentDom, oldChildren, newChildren) {
+  oldChildren = Array.isArray(oldChildren) ? oldChildren : [oldChildren];
+  newChildren = Array.isArray(newChildren) ? newChildren : [newChildren];
 
-    for(let i=0;i < maxLength;i++) {
-      // 更新组件
-      const nextDom = oldChildren.find((item,index) => index > i && item && findDom(item));
-      twoVnode(currentDom,oldChildren[i],newChildren[i],nextDom && findDom(nextDom));
-    }
+  const maxLength = Math.max(oldChildren.length, newChildren.length);
+
+  for (let i = 0; i < maxLength; i++) {
+    // 更新组件
+    const nextDom = oldChildren.find(
+      (item, index) => index > i && item && findDom(item)
+    );
+    twoVnode(
+      currentDom,
+      oldChildren[i],
+      newChildren[i],
+      nextDom && findDom(nextDom)
+    );
+  }
+}
+
+// 更新类组件
+function updateClassComponent(oldVdom, newVdom) {
+  const classInstance = newVdom.classInstance = oldVdom.classInstance;
+  if(classInstance?.componentWillReceiveProps) {
+    classInstance.componentWillReceiveProps(oldVdom.props);
+  }
+  classInstance.updater.emitUpdate(newVdom.props);
+  
+}
+
+// 更新函数组件
+function updateFunctionComponent(oldVdom, newVdom) {
+  // 获取到老的真实dom
+  const parentDom = findDom(oldVdom).parentNode;
+  const { type, props } = newVdom;
+  const newRenderVdom = type(props);
+  twoVnode(parentDom, oldVdom.oldReaderVdom, newRenderVdom);
+  oldVdom.oldReaderVdom = newRenderVdom;
 }
 
 // 更新元素
-function updateElement(oldVdom,newVnode) {
-  if(oldVdom.type === REACT_TEXT && newVnode.type === REACT_TEXT) {
-    const currentDom = newVnode.dom = findDom(oldVdom);
+function updateElement(oldVdom, newVnode) {
+  if (oldVdom.type === REACT_TEXT && newVnode.type === REACT_TEXT) {
+    const currentDom = (newVnode.dom = findDom(oldVdom));
     currentDom.textContent = newVnode.content;
-  }else if(typeof oldVdom.type === 'string') {
+  } else if (typeof oldVdom.type === "string") {
     // 百分百有问题傻带人写的
-    const currentDom = newVnode.dom = findDom(oldVdom);
+    const currentDom = (newVnode.dom = findDom(oldVdom));
     // 更新属性
-    updateProps(currentDom,oldVdom.props,newVnode.props);
+    updateProps(currentDom, oldVdom.props, newVnode.props);
     // 处理children
-    updateChildren(currentDom,oldVdom.props.children,newVnode.props.children);
+    updateChildren(currentDom, oldVdom.props.children, newVnode.props.children);
+  } else if (typeof oldVdom.type === "function") {
+    if (oldVdom.type.isReactComponent) {
+      newVnode.classInstance = oldVdom.classInstance;
+      updateClassComponent(oldVdom, newVnode);
+    } else {
+      // 函数组件
+      updateFunctionComponent(oldVdom, newVnode);
+    }
   }
 }
 
@@ -240,9 +275,9 @@ export function twoVnode(parentDom, oldVnode, newVnode, nextDom) {
     // 删除老节点添加新节点
     unmontVnode(oldVnode);
     moutVnode(parentDom, newVnode, nextDom);
-  }else {
+  } else {
     // 类型相同 更新元素
-    updateElement(oldVnode,newVnode);
+    updateElement(oldVnode, newVnode);
   }
 }
 

@@ -5,7 +5,7 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 20:33:32
  * :last editor: 张德志
- * :date last edited: 2024-10-29 09:51:58
+ * :date last edited: 2024-10-30 09:47:41
  */
 
 import { twoVnode, findDom } from "./react-dom";
@@ -30,6 +30,11 @@ function shouldUpdate(classInstance, nextProps, nextState) {
   }
   // 获取到最新的数据
   classInstance.state = nextState;
+
+  if(nextProps) {
+    classInstance.nextProps = nextProps;
+  }
+
   if (willUpdate) {
     // 实现组件数据更新
     classInstance.forceUpdate();
@@ -66,13 +71,14 @@ class Updater {
 
   // 更新组件
   updateComponent() {
-    const { classInstance,props, peddingState } = this;
-    if (peddingState.length > 0) {
-      shouldUpdate(classInstance,props, this.getState());
+    const { classInstance, nextProps, peddingState } = this;
+    if (nextProps || peddingState.length > 0) {
+      shouldUpdate(classInstance, nextProps, this.getState());
     }
   }
   // 更新数据
-  emitUpdate() {
+  emitUpdate(nextProps) {
+    this.nextProps = nextProps;
     if (updateQueue.isBatchData) {
       // 异步处理收集所有的setState()
       updateQueue.updaters.push(this);
@@ -106,7 +112,7 @@ class Component {
     twoVnode(parentDom, oldVdom, newVdom);
     // 上一次的等于新的
     this.oldReaderVdom = newVdom;
-    if(this.componentDidUpdate) {
+    if (this.componentDidUpdate) {
       // 组件更新完毕
       this.componentDidUpdate();
     }
