@@ -5,10 +5,16 @@
  * :copyright: (c) 2024, Xiaozhi
  * :date created: 2024-10-25 11:33:13
  * :last editor: 张德志
- * :date last edited: 2024-10-30 12:06:18
+ * :date last edited: 2024-10-31 08:48:16
  */
 
-import { REACT_ELEMENT, REACT_TEXT, REACT_FORWARD_REF } from "./stants";
+import {
+  REACT_ELEMENT,
+  REACT_TEXT,
+  REACT_MOVING,
+  REACT_INSERT,
+  REACT_FORWARD_REF,
+} from "./stants";
 import addEvent from "./event";
 
 function render(vdom, container) {
@@ -61,7 +67,7 @@ function updateProps(dom, oldProps, newProps) {
 }
 
 // 处理子节点
-function changeChildren(dom, children,props) {
+function changeChildren(dom, children, props) {
   if (typeof children === "string" || typeof children === "number") {
     children = { type: REACT_TEXT, content: children };
     mount(children, dom);
@@ -70,9 +76,9 @@ function changeChildren(dom, children,props) {
     props.children.mountIndex = 0;
     mount(children, dom);
   } else if (Array.isArray(children)) {
-    children.forEach((item,index) =>{
+    children.forEach((item, index) => {
       item.mountIndex = index;
-      mount(item, dom)
+      mount(item, dom);
     });
   }
 }
@@ -152,7 +158,7 @@ function createDom(vdom) {
 
   // 处理子节点
   const children = props?.children;
-  changeChildren(dom, children,props);
+  changeChildren(dom, children, props);
 
   // 保存真实dom
   vdom.dom = dom;
@@ -204,34 +210,77 @@ function moutVnode(parentDom, newVnode, nextDom) {
 }
 
 // 更新children
-function updateChildren(currentDom, oldChildren, newChildren) {
+function updateChildren(parentDom, oldChildren, newChildren) {
   oldChildren = Array.isArray(oldChildren) ? oldChildren : [oldChildren];
   newChildren = Array.isArray(newChildren) ? newChildren : [newChildren];
 
   const keyOldMap = {};
-  oldChildren.forEach((oldChild,index) => {
-    const oldKey = oldChild.key ? oldChild:index;
+  oldChildren.forEach((oldChild, index) => {
+    const oldKey = oldChild.key ? oldChild : index;
     keyOldMap[oldKey] = oldChild;
   });
 
   // 位移
-  const lastPlaceIndex = 0;
+  let lastPlaceIndex = 0;
 
   const patch = [];
-  newChildren.forEach((newChild,index) => {
+  newChildren.forEach((newChild, index) => {
     newChild.mountIndex = index;
-    const newKey = newChild.key ? newChild.key:index;
+    const newKey = newChild.key ? newChild.key : index;
     const oldChild = keyOldMap[newKey];
-    if(oldChild) {
+    if (oldChild) {
       // 更新属性更新child
-      updateElement(oldChild,newChild);
+      updateElement(oldChild, newChild);
+      // 是否移动
+      if (oldChild.mountIndex < lastPlaceIndex) {
+        patch.push({
+          type: REACT_MOVING,
+          oldChild,
+          newChild,
+          mountIndex: index,
+        });
+        delete keyOldMap[newKey];
+        lastPlaceIndex = Math.max(oldChild.mountIndex, newChild.mountIndex);
+      } else {
+        patch.push({
+          type: REACT_INSERT,
+          newChild,
+          mountIndex: index,
+        });
+      }
     }
-  })
+  });
 
+  // 处理移动的，插入的
+  const moveChildren = patch
+    .filter((action) => action.type === REACT_MOVING)
+    .map((action) => action.oldChild);
 
+  Object.values(keyOldMap)
+    .concat(moveChildren)
+    .forEach((oldChildren) => {
+      const currentDom = findDom(oldChildren);
+      parentDom.removeChild(currentDom);
+    });
 
-  console.log('keyOldMap',keyOldMap);
+  patch.forEach((action) => {
+    const { type, oldChild, newChild, mountIndex } = action;
+    const childNodes = parentDom.childNodes;
 
+    if (type === REACT_INSERT) {
+      const newDom = createDom(newChild);
+      const childNode = childNodes[mountIndex];
+      if (childNode) {
+        parentDom.insertBefore(newDom, childNode);
+      } else {
+        parentDom.appendChild(newDom);
+      }
+    }else if(type === REACT_MOVING) {
+      
+    }
+  });
+
+  // console.log("keyOldMap", keyOldMap);
 
   // const maxLength = Math.max(oldChildren.length, newChildren.length);
 
@@ -247,21 +296,15 @@ function updateChildren(currentDom, oldChildren, newChildren) {
   //     nextDom && findDom(nextDom)
   //   );
   // }
-
-
-
 }
-  
-
 
 // 更新类组件
 function updateClassComponent(oldVdom, newVdom) {
-  const classInstance = newVdom.classInstance = oldVdom.classInstance;
-  if(classInstance?.componentWillReceiveProps) {
+  const classInstance = (newVdom.classInstance = oldVdom.classInstance);
+  if (classInstance?.componentWillReceiveProps) {
     classInstance.componentWillReceiveProps(oldVdom.props);
   }
   classInstance.updater.emitUpdate(newVdom.props);
-  
 }
 
 // 更新函数组件
